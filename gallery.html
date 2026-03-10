@@ -1,1 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gallery – IFOE Philippine Eagles</title>
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="shortcut icon" href="favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600;700&family=Lato:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet" />
+  <style>
+    :root{--gold:#F5B800;--gold-light:#FFD84D;--gold-dark:#C48A00;--black:#0A0A0A;--dark:#161616;--dark-mid:#1E1E1E;--navy:#0D2B55;--navy-deep:#091F40;--white:#FFFFFF;--nav-h:80px}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:'Lato',sans-serif;background:var(--black);color:var(--white);overflow-x:hidden}
+    ::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--black)}::-webkit-scrollbar-thumb{background:var(--gold-dark);border-radius:3px}
 
+    /* ── NAV ── */
+    nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:0 40px;background:rgba(10,10,10,.96);backdrop-filter:blur(16px);border-bottom:1px solid rgba(245,184,0,.15);transition:all .4s}
+    nav.scrolled{border-bottom-color:rgba(245,184,0,.38);box-shadow:0 4px 32px rgba(0,0,0,.5)}
+    .nav-logo{display:flex;align-items:center;gap:12px;text-decoration:none}
+    .nav-logo img{width:48px;height:48px;object-fit:contain;filter:drop-shadow(0 0 8px rgba(245,184,0,.5));transition:transform .3s}
+    .nav-logo:hover img{transform:scale(1.08) rotate(-4deg)}
+    .nav-logo-text{display:flex;flex-direction:column;line-height:1.15}
+    .nav-logo-text .top{font-family:'Cinzel',serif;font-size:8.5px;letter-spacing:2.5px;color:var(--gold);text-transform:uppercase}
+    .nav-logo-text .bot{font-family:'Cinzel',serif;font-size:13px;font-weight:700;color:var(--white);letter-spacing:.8px}
+    .nav-links{display:flex;align-items:center;list-style:none}
+    .nav-links a{font-family:'Cinzel',serif;font-size:9.5px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.6);text-decoration:none;padding:8px 13px;transition:color .25s;position:relative}
+    .nav-links a::after{content:'';position:absolute;bottom:3px;left:13px;right:13px;height:1px;background:var(--gold);transform:scaleX(0);transition:transform .3s}
+    .nav-links a:hover,.nav-links a.active{color:var(--gold)}
+    .nav-links a:hover::after,.nav-links a.active::after{transform:scaleX(1)}
+    .nav-cta{display:flex;gap:8px}
+    .btn-nav{font-family:'Cinzel',serif;font-size:9px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;padding:8px 16px;border-radius:2px;text-decoration:none;transition:all .3s;cursor:pointer;border:none;white-space:nowrap;display:inline-flex;align-items:center;gap:6px}
+    .btn-solid{color:var(--black);background:var(--gold)}
+    .btn-solid:hover{background:var(--gold-light);box-shadow:0 4px 18px rgba(245,184,0,.45)}
+
+    /* ── PAGE HERO ── */
+    .page-hero{padding-top:var(--nav-h);background:linear-gradient(180deg,rgba(13,43,85,.35) 0%,rgba(10,10,10,1) 100%),var(--black);position:relative;overflow:hidden;text-align:center;padding-bottom:60px}
+    .page-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 50% 0%,rgba(245,184,0,.07) 0%,transparent 70%)}
+    .page-hero-inner{position:relative;z-index:2;padding-top:56px}
+    .ph-eyebrow{font-family:'Cinzel',serif;font-size:10px;font-weight:700;letter-spacing:5px;text-transform:uppercase;color:var(--gold);margin-bottom:16px;display:flex;align-items:center;justify-content:center;gap:14px}
+    .ph-eyebrow::before,.ph-eyebrow::after{content:'';display:block;width:40px;height:1px;background:linear-gradient(90deg,transparent,var(--gold))}
+    .ph-eyebrow::after{background:linear-gradient(90deg,var(--gold),transparent)}
+    .ph-title{font-family:'Cinzel Decorative',cursive;font-size:clamp(28px,5vw,58px);font-weight:900;color:var(--white);line-height:1.08;margin-bottom:14px}
+    .ph-title span{color:var(--gold)}
+    .ph-sub{font-size:14px;color:rgba(255,255,255,.45);letter-spacing:2px;max-width:560px;margin:0 auto 32px}
+
+    /* ── TABS ── */
+    .tabs-wrap{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;padding:0 24px 48px}
+    .tab-btn{font-family:'Cinzel',serif;font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;padding:10px 22px;border:1px solid rgba(245,184,0,.25);background:transparent;color:rgba(255,255,255,.5);border-radius:2px;cursor:pointer;transition:all .28s}
+    .tab-btn:hover{border-color:var(--gold);color:var(--gold)}
+    .tab-btn.active{background:var(--gold);border-color:var(--gold);color:var(--black)}
+
+    /* ── GALLERY SECTIONS ── */
+    .gallery-section{display:none;padding:0 32px 80px}
+    .gallery-section.visible{display:block}
+    .container{max-width:1280px;margin:0 auto}
+    .s-label{font-family:'Cinzel',serif;font-size:10px;font-weight:700;letter-spacing:4.5px;text-transform:uppercase;color:var(--gold);margin-bottom:10px;display:flex;align-items:center;gap:10px}
+    .s-label::before{content:'';display:inline-block;width:26px;height:1px;background:var(--gold)}
+    .s-title{font-family:'Cinzel',serif;font-size:clamp(20px,3vw,32px);font-weight:700;color:var(--white);margin-bottom:6px}
+    .s-desc{font-size:13.5px;color:rgba(255,255,255,.4);letter-spacing:.5px;margin-bottom:40px;max-width:620px}
+    .sec-header{margin-bottom:36px}
+
+    /* ── MASONRY GRID ── */
+    .masonry{columns:3;column-gap:14px}
+    @media(max-width:900px){.masonry{columns:2}}
+    @media(max-width:560px){.masonry{columns:1}}
+    .photo-card{break-inside:avoid;margin-bottom:14px;position:relative;overflow:hidden;border-radius:3px;cursor:pointer;background:var(--dark-mid)}
+    .photo-card img{width:100%;display:block;transition:transform .5s ease;object-fit:cover}
+    .photo-card:hover img{transform:scale(1.04)}
+    .photo-card .overlay{position:absolute;inset:0;background:linear-gradient(180deg,transparent 50%,rgba(10,10,10,.85) 100%);opacity:0;transition:opacity .35s}
+    .photo-card:hover .overlay{opacity:1}
+    .photo-card .caption{position:absolute;bottom:0;left:0;right:0;padding:14px 16px;transform:translateY(8px);opacity:0;transition:all .35s}
+    .photo-card:hover .caption{transform:translateY(0);opacity:1}
+    .caption-text{font-family:'Cinzel',serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--gold)}
+
+    /* ── FEATURE ROW ── */
+    .feature-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+    .feature-row .photo-card img{height:380px;object-fit:cover}
+    .feature-big img{height:580px!important;object-fit:cover}
+    @media(max-width:700px){.feature-row{grid-template-columns:1fr}.feature-row .photo-card img{height:260px}.feature-big img{height:360px!important}}
+
+    /* ── LIGHTBOX ── */
+    .lightbox{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.95);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s;padding:20px}
+    .lightbox.open{opacity:1;pointer-events:all}
+    .lb-inner{position:relative;max-width:92vw;max-height:92vh}
+    .lb-inner img{max-width:92vw;max-height:88vh;object-fit:contain;border:1px solid rgba(245,184,0,.15);border-radius:2px}
+    .lb-close{position:fixed;top:24px;right:28px;background:none;border:none;color:var(--gold);font-size:32px;cursor:pointer;line-height:1;z-index:10000;opacity:.8;transition:opacity .2s}
+    .lb-close:hover{opacity:1}
+    .lb-prev,.lb-next{position:fixed;top:50%;transform:translateY(-50%);background:rgba(245,184,0,.12);border:1px solid rgba(245,184,0,.3);color:var(--gold);font-size:22px;padding:14px 18px;cursor:pointer;border-radius:2px;transition:background .25s;z-index:10000}
+    .lb-prev{left:12px}.lb-next{right:12px}
+    .lb-prev:hover,.lb-next:hover{background:rgba(245,184,0,.28)}
+    .lb-caption{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);opacity:.7}
+
+    /* ── GOLD DIVIDER ── */
+    .gold-div{display:flex;align-items:center;gap:18px;margin:56px 0 48px}
+    .gold-div-line{flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(245,184,0,.3),transparent)}
+    .gold-div-icon{color:var(--gold);font-size:18px;opacity:.6}
+
+    /* ── FOOTER ── */
+    footer{background:var(--dark);border-top:1px solid rgba(245,184,0,.12);padding:64px 0 32px}
+    .footer-grid{max-width:1200px;margin:0 auto;padding:0 48px;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:48px}
+    @media(max-width:900px){.footer-grid{grid-template-columns:1fr 1fr;padding:0 24px}}
+    @media(max-width:560px){.footer-grid{grid-template-columns:1fr}}
+    .fc-brand img{width:56px;height:56px;object-fit:contain;margin-bottom:16px;filter:drop-shadow(0 0 12px rgba(245,184,0,.4))}
+    .fc-brand-name{font-family:'Cinzel',serif;font-size:15px;font-weight:700;color:var(--white);margin-bottom:8px}
+    .fc-tagline{font-size:12px;color:rgba(255,255,255,.35);letter-spacing:1px;line-height:1.7;max-width:240px}
+    .fc-title{font-family:'Cinzel',serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:18px}
+    .fc-links{list-style:none}
+    .fc-links li{margin-bottom:10px}
+    .fc-links a{font-size:12.5px;color:rgba(255,255,255,.45);text-decoration:none;transition:color .25s;letter-spacing:.4px}
+    .fc-links a:hover{color:var(--gold)}
+    .footer-bottom{max-width:1200px;margin:0 auto;padding:24px 48px 0;border-top:1px solid rgba(255,255,255,.06);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+    .footer-copy{font-size:11px;color:rgba(255,255,255,.25);letter-spacing:.5px}
+    .footer-motto{font-family:'Cinzel',serif;font-size:10px;color:var(--gold);letter-spacing:2px;opacity:.6}
+
+    /* FAB */
+    .fab-wrap{position:fixed;bottom:28px;right:28px;z-index:999;display:flex;align-items:center;gap:10px}
+    .fab-tip{font-size:11px;background:rgba(10,10,10,.9);border:1px solid rgba(245,184,0,.3);color:var(--gold);padding:6px 12px;border-radius:20px;opacity:0;transform:translateX(8px);transition:all .3s;white-space:nowrap}
+    .fab-wrap:hover .fab-tip{opacity:1;transform:translateX(0)}
+    .fab{width:52px;height:52px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(245,184,0,.45);transition:transform .3s,box-shadow .3s}
+    .fab:hover{transform:scale(1.1);box-shadow:0 8px 32px rgba(245,184,0,.65)}
+    .fab svg{width:26px;height:26px;fill:var(--black)}
+
+    /* MOBILE NAV */
+    @media(max-width:768px){
+      nav{padding:0 20px}
+      .nav-links,.nav-cta{display:none}
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+    .page-hero-inner{animation:fadeUp .8s ease both}
+  </style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav id="navbar">
+  <a href="index.html" class="nav-logo">
+    <img src="logo_IFOE.jpg" alt="IFOE Logo" />
+    <div class="nav-logo-text">
+      <span class="top">International Fraternal Order of Eagles</span>
+      <span class="bot">Philippine Eagles</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="index.html#leadership">Leadership</a></li>
+    <li><a href="index.html#programs">Programs</a></li>
+    <li><a href="gallery.html" class="active">Gallery</a></li>
+    <li><a href="our-clubs.html">Our Clubs</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+  <div class="nav-cta">
+    <a href="https://www.facebook.com/messages/t/61577709546547" target="_blank" rel="noopener" class="btn-nav btn-solid">Join Us</a>
+  </div>
+</nav>
+
+<!-- ── PAGE HERO ── -->
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <div class="ph-eyebrow">Our Story in Pictures</div>
+    <h1 class="ph-title">The <span>Eagles</span> Gallery</h1>
+    <p class="ph-sub">Brotherhood in action — moments of ceremony, service, and celebration across the Philippine Islands and beyond.</p>
+  </div>
+</div>
+
+<!-- ── TABS ── -->
+<div class="tabs-wrap">
+  <button class="tab-btn active" onclick="showTab('all')">All Photos</button>
+  <button class="tab-btn" onclick="showTab('convention')">1st International Convention</button>
+  <button class="tab-btn" onclick="showTab('chartering')">Chartering & Induction</button>
+  <button class="tab-btn" onclick="showTab('outreach')">Community Outreach</button>
+  <button class="tab-btn" onclick="showTab('diplomatic')">Diplomatic Visits</button>
+  <button class="tab-btn" onclick="showTab('brotherhood')">Brotherhood Moments</button>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SECTION: ALL (default)
+════════════════════════════════════════════ -->
+<div class="gallery-section visible" id="sec-all">
+  <div class="container">
+
+    <!-- FEATURED ROW -->
+    <div class="feature-row">
+      <div class="photo-card feature-big" onclick="openLb(this)">
+        <img src="524837314_122117687852923651_3784485212059063557_n.jpg" alt="1st International Convention — Oath-taking" loading="lazy" />
+        <div class="overlay"></div>
+        <div class="caption"><div class="caption-text">1st International Convention — Oath-Taking</div></div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <div class="photo-card" onclick="openLb(this)" style="flex:1">
+          <img src="516517424_122110263926923651_7588761395154899369_n.jpg" alt="Community outreach — food distribution" loading="lazy" style="height:100%;object-fit:cover" />
+          <div class="overlay"></div>
+          <div class="caption"><div class="caption-text">Community Outreach</div></div>
+        </div>
+        <div class="photo-card" onclick="openLb(this)" style="flex:1">
+          <img src="524689561_122117687714923651_1583567582186640654_n.jpg" alt="Convention gala — international delegation" loading="lazy" style="height:100%;object-fit:cover" />
+          <div class="overlay"></div>
+          <div class="caption"><div class="caption-text">International Delegation — Convention Gala</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MASONRY -->
+    <div class="masonry">
+      <div class="photo-card" onclick="openLb(this)"><img src="524304241_122117687564923651_3045544784515158671_n.jpg" alt="Convention gala" loading="lazy"/><div class="overlay"></div><div class="caption"><div class="caption-text">Gala Night</div></div></div>
+      <div class="photo-card" onclick="openLb(this)"><img src="516359338_122110263764923651_1797155417266158049_n.jpg" alt="Outreach food sharing" loading="lazy"/><div class="overlay"></div><div class="caption"><div class="caption-text">Food Sharing Mission</div></div></div>
+      <div class="photo-card" onclick="openLb(this)"><img src="515013211_122109802706923651_6366677024342232027_n.jpg" alt="Chartering ceremony" loading="lazy"/><div class="overlay"></div><div class="caption"><div class="caption-text">Chartering Ceremony</div></div></div>
+      <div class="photo-card" onclick="openLb(this)"><img src="524612307_122116838162923651_3547464899630244944_n.jpg" alt="Visit to Mandaue City Vice Mayor" loading="lazy"/><div class="overlay"></div><div class="caption"><div class="caption-text">Visit — Mandaue City Vice Mayor</div></div></div>
+      <div class="photo-card" onclick="openLb(this)"><img src="517963421_122113755650923651_7800274337183902700_n.jpg" alt="Chapter meeting" loading="lazy"/><div class="overlay"></div><div class="caption"><div class="caption-text">Chapter Meeting</div></div></div>
+      <div class="photo-card" onclick="openLb(this)"><img src="524382342_122117687720923651_2162068186151127417_n.jpg" alt="Live entertainment — convention gala" loading="lazy"/><div class="overlay"></div><div class="caption"><div class="caption-text">Convention Entertainment</div></div></div>
+      <div class="photo-card" onclick="openLb(this)"><img src="524809800_122117687870923651_4456512581159538226_n.jpg" alt="International Eagles leaders — gala" loading="lazy"/><div class="overlay"></div><div class="caption"><div class="caption-text">Eagles International Leaders</div></div></div>
+      <div class="photo-card" onclick="openLb(this)"><img src="524366777_122117687876923651_4333358377293687590_n.jpg" alt="Convention banquet" loading="lazy"/><div class="overlay"></div><div class="caption"><div class="caption-text">Convention Banquet</div></div></div>
+      <div class="photo-card" onclick="openLb(this)"><img src="516440964_122110263740923651_8994641437663321696_n.jpg" alt="Community outreach" loading="lazy"/><div class="overlay"></div><div class="caption"><div class="caption-text">Outreach Program</div></div></div>
+      <div class="photo-card" onclick="openLb(this)"><img src="524378159_122116838276923651_4039344460160233141_n.jpg" alt="Diplomatic meeting — Mayor" loading="lazy"/><div class="overlay"></div><div class="caption"><div class="caption-text">Diplomatic Meeting</div></div></div>
+      <div class="photo-card" onclick="openLb(this)"><img src="515728168_122109802652923651_7649247963565790058_n.jpg" alt="Chartering screen — Induction Ceremony" loading="lazy"/><div class="overlay"></div><div class="caption"><div class="caption-text">Chartering, Installation & Induction</div></div></div>
+      <div class="photo-card" onclick="openLb(this)"><img src="516403184_122109802586923651_5383224314125588888_n.jpg" alt="Convention panel discussion" loading="lazy"/><div class="overlay"></div><div class="caption"><div class="caption-text">Convention Panel</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SECTION: 1ST INTERNATIONAL CONVENTION
+════════════════════════════════════════════ -->
+<div class="gallery-section" id="sec-convention">
+  <div class="container">
+    <div class="sec-header">
+      <div class="s-label">January 26–27, 2025 · Cebu City</div>
+      <h2 class="s-title">1st International Convention</h2>
+      <p class="s-desc">The historic gathering of Eagles from across the globe — oath-takings, installation of officers, international delegates, and a grand gala night.</p>
+    </div>
+
+    <!-- Feature -->
+    <div class="feature-row" style="margin-bottom:14px">
+      <div class="photo-card feature-big" onclick="openLb(this)">
+        <img src="524837314_122117687852923651_3784485212059063557_n.jpg" alt="1st International Convention — Oath-taking" loading="lazy"/>
+        <div class="overlay"></div>
+        <div class="caption"><div class="caption-text">Oath-Taking of Officers</div></div>
+      </div>
+      <div class="photo-card feature-big" onclick="openLb(this)">
+        <img src="524689561_122117687714923651_1583567582186640654_n.jpg" alt="Convention gala with international delegation" loading="lazy"/>
+        <div class="overlay"></div>
+        <div class="caption"><div class="caption-text">International Delegation — Gala Night</div></div>
+      </div>
+    </div>
+
+    <div class="masonry">
+      <div class="photo-card" onclick="openLb(this)"><img src="524366777_122117687876923651_4333358377293687590_n.jpg" alt="Convention banquet" loading="lazy"/><div class="overlay"></div><div class="caption"><div class="caption-text">Convention Banquet</div></div></div>
+      <div class="photo-card" onclick="openLb(this)"><img src="524304241_122117687564923651_3045544784515158671_n.jpg" alt="Dancing at gala" loading="lazy"/><div class="overlay"></div><div class="caption"><div class="caption-text">Gala Celebration</div></div></div>
+      <div class="photo-card" onclick="openLb(this)"><img src="524382342_122117687720923651_2162068186151127417_n.jpg" alt="Live performance" loading="lazy"/><div class="overlay"></div><div class="caption"><div class="caption-text">Live Entertainment</div></div></div>
+      <div class="photo-card" onclick="openLb(this)"><img src="524809800_122117687870923651_4456512581159538226_n.jpg" alt="Eagles international leaders" loading="lazy"/><div class="overlay"></div><div class="caption"><div class="caption-text">Eagles International Leadership</div></div></div>
+      <div class="photo-card" onclick="openLb(this)"><img src="516403184_122109802586923651_5383224314125588888_n.jpg" alt="Convention panel" loading="lazy"/><div class="overlay"></div><div class="caption"><div class="caption-text">Convention Panel Discussion</div></div></div>
+      <div class="photo-card" onclick="openLb(this)"><img src="524986546_122117687888923651_1775108963882629743_n.jpg" alt="Convention moments" loading="lazy"/><div class="overlay"></div><div class="caption"><div class="caption-text">Convention Moments</div></div></div>
+      <div class="photo-card" onclick="openLb(this)"><img src="524643091_122117687588923651_942998865112459022_n.jpg" alt="Eagles gathering" loading="lazy"/><div class="overlay"></div><div class="caption"><div class="caption-text">Eagles Gathering</div></div></div>
+      <div class="photo-card" onclick="openLb(this)"><img src="525792053_122117687534923651_6500820999516169774_n.jpg" alt="Convention ceremony" loading="lazy"/><div class="overlay"></div><div class="caption"><div class="caption-text">Ceremony Highlights</div></div></div>
+      <div class="photo-card" onclick="openLb(this)"><img src="524899787_122117687948923651_75186934562176048_n.jpg" alt="Convention delegates" loading="lazy"/><div class="overlay"></div><div class="caption"><div class="caption-text">Convention Delegates</div></div></div>
+      <div class="photo-card" onclick="openLb(this)"><img src="524837314_122117687852923651_3784485212059063557_n.jpg" alt="Oath taking line up" loading="lazy"/><div class="overlay"></div><div class="caption"><div class="caption-text">Officers' Oath</div></div></div>
+      <div class="photo-card" onclick="openLb(this)"><img src="524689561_122117687714923651_1583567582186640654_n.jpg" alt="Gala delegates" loading="lazy"/><div class="overlay"></div><div class="caption"><div class="caption-text">Gala Night — Group Photo</div></div></div>
+      <div class="photo-card" onclick="openLb(this)"><img src="525055127_122117687732923651_8811338254557494791_n.jpg" alt="Convention celebration" loading="lazy"/><div class="overlay"></div><div class="caption"><div class="caption-text">Celebration</div></div></div>
+      <div class="photo-card" onclick="openLb(this)"><img src="525333716_122117687678923651_4809849668335540904_n.jpg" alt="Convention event" loading="lazy"/><div class="overlay"></div><div class="caption"><div class="caption-text">Convention Event</div></div></div>
+      <div class="photo-card" onclick="openLb(this)"><img src="524988558_122117688026923651_3017139557968930631_n.jpg" alt="Convention group" loading="lazy"/><div class="overlay"></div><div class="caption"><div class="caption-text">Eagles Family</div></div></div>
+      <div class="photo-card" onclick="openLb(this)"><img src="525921451_122117687612923651_2694967532262470175_n.jpg" alt="Convention moment" loading="lazy"/><div class="overlay"></div><div class="caption"><div class="caption-text">Brotherhood Moment</div></div></div>
+      <div class="photo-card" onclick="openLb(this)"><img src="525674455_122117687540923651_6447791020157351528_n.jpg" alt="Eagles unity" loading="lazy"/><div class="overlay"></div><div class="caption"><div class="caption-text">Eagles Unity</div></div></div>
+      <div class="photo-card" onclick="openLb(this)"><img src="525398508_122117687810923651_4288027112740358977_n.jpg" alt="Fellowship" loading="lazy"/><div class="overlay"></div><div class="caption"><div class="caption-text">Fellowship</div></div></div>
+      <div class="photo-card" onclick="openLb(this)"><img src="524809800_122117687870923651_4456512581159538226_n.jpg" alt="Eagles dance" loading="lazy"/><div class="overlay"></div><div class="caption"><div class="caption-text">Gala Dance Floor</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SECTION: CHARTERING & INDUCTION
+════════════════════════════════════════════ -->
+<div class="gallery-section" id="sec-chartering">
+  <div class="container">
+    <div class="sec-header">
+      <div class="s-label">Milestone Events</div>
+      <h2 class="s-title">Chartering, Installation & Induction</h2>
+      <p class="s-desc">The founding ceremonies that launched the Philippine Eagles — solemn rituals of brotherhood, candle-lighting, and the official chartering of the aerie.</p>
+    </div>
+
+    <div class="feature-row" style="margin-bottom:14px">
+      <div class="photo-card feature-big" onclick="openLb(this)">
+        <img src="515728168_122109802652923651_7649247963565790058_n.jpg" alt="Chartering Installation and Induction Ceremony screen" loading="lazy"/>
+        <div class="overlay"></div>
+        <div class="caption"><div class="caption-text">Chartering, Installation & Induction Ceremony</div></div>
+      </div>
+      <div class="photo-card feature-big" onclick="openLb(this)">
+        <img src="515013211_122109802706923651_6366677024342232027_n.jpg" alt="Induction ceremony — candle-lighting" loading="lazy"/>
+        <div class="overlay"></div>
+        <div class="caption"><div class="caption-text">Candlelight Induction</div></div>
+      </div>
+    </div>
+
+    <div class="masonry">
+      <div class="photo-card" onclick="openLb(this)"><img src="516403184_122109802586923651_5383224314125588888_n.jpg" alt="Panel discussion" loading="lazy"/><div class="overlay"></div><div class="caption"><div class="caption-text">Charter Panel — Cebu</div></div></div>
+      <div class="photo-card" onclick="openLb(this)"><img src="515390371_122109802778923651_2636984299072407931_n.jpg" alt="General assembly" loading="lazy"/><div class="overlay"></div><div class="caption"><div class="caption-text">General Assembly</div></div></div>
+      <div class="photo-card" onclick="openLb(this)"><img src="515574333_122109802694923651_8658270313421813574_n.jpg" alt="Ceremony proceedings" loading="lazy"/><div class="overlay"></div><div class="caption"><div class="caption-text">Ceremony Proceedings</div></div></div>
+      <div class="photo-card" onclick="openLb(this)"><img src="515444241_122109802832923651_2360464970887679266_n.jpg" alt="Ceremony moments" loading="lazy"/><div class="overlay"></div><div class="caption"><div class="caption-text">Ceremony Moments</div></div></div>
+      <div class="photo-card" onclick="openLb(this)"><img src="516542813_122109802766923651_8926428800064629090_n.jpg" alt="Eagles aerie founding" loading="lazy"/><div class="overlay"></div><div class="caption"><div class="caption-text">Aerie Founding</div></div></div>
+      <div class="photo-card" onclick="openLb(this)"><img src="517069917_122109802616923651_4914672462172157371_n.jpg" alt="Pre-ceremony gathering" loading="lazy"/><div class="overlay"></div><div class="caption"><div class="caption-text">Pre-Ceremony Gathering</div></div></div>
+      <div class="photo-card" onclick="openLb(this)"><img src="515983451_122109802844923651_508412868989575776_n.jpg" alt="Chartering reception" loading="lazy"/><div class="overlay"></div><div class="caption"><div class="caption-text">Chartering Reception</div></div></div>
+      <div class="photo-card" onclick="openLb(this)"><img src="515731489_122109802670923651_7898780495510834537_n.jpg" alt="Eagles charter moment" loading="lazy"/><div class="overlay"></div><div class="caption"><div class="caption-text">Charter Moment</div></div></div>
+      <div class="photo-card" onclick="openLb(this)"><img src="516096327_122110258232923651_5808695187649303350_n.jpg" alt="Officers induction" loading="lazy"/><div class="overlay"></div><div class="caption"><div class="caption-text">Officers Induction</div></div></div>
+      <div class="photo-card" onclick="openLb(this)"><img src="516168230_122110256456923651_3992419469561484181_n.jpg" alt="Induction ceremony" loading="lazy"/><div class="overlay"></div><div class="caption"><div class="caption-text">Induction Ceremony</div></div></div>
+      <div class="photo-card" onclick="openLb(this)"><img src="516301009_122110258244923651_6630033000851749858_n.jpg" alt="Eagles charter group" loading="lazy"/><div class="overlay"></div><div class="caption"><div class="caption-text">Charter Group Photo</div></div></div>
+      <div class="photo-card" onclick="openLb(this)"><img src="516377965_122110258388923651_8088940296794914045_n.jpg" alt="Induction formal" loading="lazy"/><div class="overlay"></div><div class="caption"><div class="caption-text">Formal Induction</div></div></div>
+      <div class="photo-card" onclick="openLb(this)"><img src="516402453_122110258256923651_3105717634496439328_n.jpg" alt="Eagles formal event" loading="lazy"/><div class="overlay"></div><div class="caption"><div class="caption-text">Eagles Formal Event</div></div></div>
+      <div class="photo-card" onclick="openLb(this)"><img src="517177239_122110258322923651_4881835260900836187_n.jpg" alt="Charter ceremony detail" loading="lazy"/><div class="overlay"></div><div class="caption"><div class="caption-text">Charter Ceremony</div></div></div>
+      <div class="photo-card" onclick="openLb(this)"><img src="517247983_122110258328923651_5184712831997774889_n.jpg" alt="Chartering photo" loading="lazy"/><div class="overlay"></div><div class="caption"><div class="caption-text">Chartering Photo</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SECTION: COMMUNITY OUTREACH
+════════════════════════════════════════════ -->
+<div class="gallery-section" id="sec-outreach">
+  <div class="container">
+    <div class="sec-header">
+      <div class="s-label">Humanitarian Service</div>
+      <h2 class="s-title">Community Outreach</h2>
+      <p class="s-desc">Eagles in action — delivering food, sharing meals, and serving communities with the spirit of brotherhood and Deo et Patria.</p>
+    </div>
+
+    <div class="feature-row" style="margin-bottom:14px">
+      <div class="photo-card feature-big" onclick="openLb(this)">
+        <img src="516517424_122110263926923651_7588761395154899369_n.jpg" alt="Eagles distributing food to children" loading="lazy"/>
+        <div class="overlay"></div>
+        <div class="caption"><div class="caption-text">Food Distribution for Children</div></div>
+      </div>
+      <div class="photo-card feature-big" onclick="openLb(this)">
+        <img src="516359338_122110263764923651_1797155417266158049_n.jpg" alt="Eagles sharing food to seniors" loading="lazy"/>
+        <div class="overlay"></div>
+        <div class="caption"><div class="caption-text">Sharing With Seniors</div></div>
+      </div>
+    </div>
+
+    <div class="masonry">
+      <div class="photo-card" onclick="openLb(this)"><img src="516440964_122110263740923651_8994641437663321696_n.jpg" alt="Community outreach gathering" loading="lazy"/><div class="overlay"></div><div class="caption"><div class="caption-text">Community Gathering</div></div></div>
+      <div class="photo-card" onclick="openLb(this)"><img src="515443223_122110263824923651_8831812151280660651_n.jpg" alt="Outreach mission" loading="lazy"/><div class="overlay"></div><div class="caption"><div class="caption-text">Outreach Mission</div></div></div>
+      <div class="photo-card" onclick="openLb(this)"><img src="516761428_122110263728923651_2851519595181666175_n.jpg" alt="Eagles serving community" loading="lazy"/><div class="overlay"></div><div class="caption"><div class="caption-text">Service to Community</div></div></div>
+      <div class="photo-card" onclick="openLb(this)"><img src="516864625_122110263896923651_2237753694226671456_n.jpg" alt="Outreach program" loading="lazy"/><div class="overlay"></div><div class="caption"><div class="caption-text">Outreach Program</div></div></div>
+      <div class="photo-card" onclick="openLb(this)"><img src="516929645_122110263908923651_5603163504605311731_n.jpg" alt="Eagles in the community" loading="lazy"/><div class="overlay"></div><div class="caption"><div class="caption-text">Eagles in Community</div></div></div>
+      <div class="photo-card" onclick="openLb(this)"><img src="517034013_122110258400923651_8361203267888238267_n.jpg" alt="Service moments" loading="lazy"/><div class="overlay"></div><div class="caption"><div class="caption-text">Service Moments</div></div></div>
+      <div class="photo-card" onclick="openLb(this)"><img src="517053967_122110263782923651_4187061963099164148_n.jpg" alt="Outreach" loading="lazy"/><div class="overlay"></div><div class="caption"><div class="caption-text">Community Outreach</div></div></div>
+      <div class="photo-card" onclick="openLb(this)"><img src="515797749_122110263842923651_7573324163468936717_n.jpg" alt="Eagles service" loading="lazy"/><div class="overlay"></div><div class="caption"><div class="caption-text">Eagles Service</div></div></div>
+      <div class="photo-card" onclick="openLb(this)"><img src="515925492_122110263878923651_4229347347347655736_n.jpg" alt="Community service" loading="lazy"/><div class="overlay"></div><div class="caption"><div class="caption-text">Community Service</div></div></div>
+      <div class="photo-card" onclick="openLb(this)"><img src="516418488_122110263854923651_7336242014615531795_n.jpg" alt="Outreach gathering" loading="lazy"/><div class="overlay"></div><div class="caption"><div class="caption-text">Outreach Gathering</div></div></div>
+      <div class="photo-card" onclick="openLb(this)"><img src="516473106_122110258286923651_8985986174597285830_n.jpg" alt="Service day" loading="lazy"/><div class="overlay"></div><div class="caption"><div class="caption-text">Service Day</div></div></div>
+      <div class="photo-card" onclick="openLb(this)"><img src="516571709_122110263812923651_9108304081214375698_n.jpg" alt="Mission outreach" loading="lazy"/><div class="overlay"></div><div class="caption"><div class="caption-text">Mission Outreach</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SECTION: DIPLOMATIC VISITS
+════════════════════════════════════════════ -->
+<div class="gallery-section" id="sec-diplomatic">
+  <div class="container">
+    <div class="sec-header">
+      <div class="s-label">Building Alliances</div>
+      <h2 class="s-title">Diplomatic Visits & Courtesy Calls</h2>
+      <p class="s-desc">Eagles leadership building bridges — courtesy calls on Vice Mayors, Mayors, and government officials across Cebu and beyond.</p>
+    </div>
+
+    <div class="feature-row" style="margin-bottom:14px">
+      <div class="photo-card feature-big" onclick="openLb(this)">
+        <img src="524612307_122116838162923651_3547464899630244944_n.jpg" alt="Visit to Mandaue City Vice Mayor Glenn Bercede" loading="lazy"/>
+        <div class="overlay"></div>
+        <div class="caption"><div class="caption-text">Courtesy Call — Mandaue City Vice Mayor</div></div>
+      </div>
+      <div class="photo-card feature-big" onclick="openLb(this)">
+        <img src="524378159_122116838276923651_4039344460160233141_n.jpg" alt="Eagles diplomatic meeting" loading="lazy"/>
+        <div class="overlay"></div>
+        <div class="caption"><div class="caption-text">Courtesy Call — Lapu-Lapu City Official</div></div>
+      </div>
+    </div>
+
+    <div class="masonry">
+      <div class="photo-card" onclick="openLb(this)"><img src="522719641_122116838174923651_9108725729702540471_n.jpg" alt="Diplomatic courtesy call" loading="lazy"/><div class="overlay"></div><div class="caption"><div class="caption-text">Diplomatic Engagement</div></div></div>
+      <div class="photo-card" onclick="openLb(this)"><img src="524150019_122117688962923651_8280640038408990466_n.jpg" alt="Diplomatic visit" loading="lazy"/><div class="overlay"></div><div class="caption"><div class="caption-text">Official Visit</div></div></div>
+      <div class="photo-card" onclick="openLb(this)"><img src="524219765_122117688992923651_4892776242755278342_n.jpg" alt="Government courtesy call" loading="lazy"/><div class="overlay"></div><div class="caption"><div class="caption-text">Courtesy Call</div></div></div>
+      <div class="photo-card" onclick="openLb(this)"><img src="524255284_122117688290923651_2670765962270516824_n.jpg" alt="Eagles and government" loading="lazy"/><div class="overlay"></div><div class="caption"><div class="caption-text">Eagles & Government</div></div></div>
+      <div class="photo-card" onclick="openLb(this)"><img src="524300652_122117688158923651_4328093460613568003_n.jpg" alt="Official engagement" loading="lazy"/><div class="overlay"></div><div class="caption"><div class="caption-text">Official Engagement</div></div></div>
+      <div class="photo-card" onclick="openLb(this)"><img src="524305464_122117688818923651_5844014413834603666_n.jpg" alt="Visit group photo" loading="lazy"/><div class="overlay"></div><div class="caption"><div class="caption-text">Group Photo — Diplomatic Visit</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SECTION: BROTHERHOOD MOMENTS
+════════════════════════════════════════════ -->
+<div class="gallery-section" id="sec-brotherhood">
+  <div class="container">
+    <div class="sec-header">
+      <div class="s-label">Service Through Strong Brotherhood</div>
+      <h2 class="s-title">Brotherhood Moments</h2>
+      <p class="s-desc">The everyday bonds that hold the Eagles together — chapter meetings, fellowship meals, planning sessions, and celebrating our own.</p>
+    </div>
+
+    <div class="masonry">
+      <div class="photo-card" onclick="openLb(this)"><img src="517963421_122113755650923651_7800274337183902700_n.jpg" alt="Chapter meeting group photo" loading="lazy"/><div class="overlay"></div><div class="caption"><div class="caption-text">Chapter Meeting</div></div></div>
+      <div class="photo-card" onclick="openLb(this)"><img src="518257763_122113755656923651_5614959947635764819_n.jpg" alt="Chapter gathering" loading="lazy"/><div class="overlay"></div><div class="caption"><div class="caption-text">Chapter Gathering</div></div></div>
+      <div class="photo-card" onclick="openLb(this)"><img src="524557376_122117689094923651_5386729010980841603_n.jpg" alt="Eagles fellowship" loading="lazy"/><div class="overlay"></div><div class="caption"><div class="caption-text">Eagles Fellowship</div></div></div>
+      <div class="photo-card" onclick="openLb(this)"><img src="524391560_122117689376923651_7363297556767743053_n.jpg" alt="Brotherhood moment" loading="lazy"/><div class="overlay"></div><div class="caption"><div class="caption-text">Brotherhood Moment</div></div></div>
+      <div class="photo-card" onclick="openLb(this)"><img src="524531735_122117688830923651_6360498601088306992_n.jpg" alt="Eagles gathering" loading="lazy"/><div class="overlay"></div><div class="caption"><div class="caption-text">Eagles Gathering</div></div></div>
+      <div class="photo-card" onclick="openLb(this)"><img src="524458230_122117688122923651_387325963027919633_n.jpg" alt="Members together" loading="lazy"/><div class="overlay"></div><div class="caption"><div class="caption-text">Members Together</div></div></div>
+      <div class="photo-card" onclick="openLb(this)"><img src="524455235_122117688860923651_6136415670108439164_n.jpg" alt="Eagles brotherhood" loading="lazy"/><div class="overlay"></div><div class="caption"><div class="caption-text">Eagles Brotherhood</div></div></div>
+      <div class="photo-card" onclick="openLb(this)"><img src="524520484_122117689004923651_7137114611034537226_n.jpg" alt="Chapter activity" loading="lazy"/><div class="overlay"></div><div class="caption"><div class="caption-text">Chapter Activity</div></div></div>
+      <div class="photo-card" onclick="openLb(this)"><img src="524556481_122117688344923651_7427203489652671669_n.jpg" alt="Eagles members" loading="lazy"/><div class="overlay"></div><div class="caption"><div class="caption-text">Eagles Members</div></div></div>
+      <div class="photo-card" onclick="openLb(this)"><img src="524642198_122117688488923651_8281836619659892668_n.jpg" alt="Eagles family" loading="lazy"/><div class="overlay"></div><div class="caption"><div class="caption-text">Eagles Family</div></div></div>
+      <div class="photo-card" onclick="openLb(this)"><img src="524650980_122117688362923651_7144482254254078206_n.jpg" alt="Eagles team" loading="lazy"/><div class="overlay"></div><div class="caption"><div class="caption-text">Eagles Team</div></div></div>
+      <div class="photo-card" onclick="openLb(this)"><img src="524719411_122117688782923651_6657378780989735342_n.jpg" alt="Eagles unity" loading="lazy"/><div class="overlay"></div><div class="caption"><div class="caption-text">Eagles Unity</div></div></div>
+      <div class="photo-card" onclick="openLb(this)"><img src="524748106_122117688584923651_5776835895250699670_n.jpg" alt="Brothers in arms" loading="lazy"/><div class="overlay"></div><div class="caption"><div class="caption-text">Brothers in Arms</div></div></div>
+      <div class="photo-card" onclick="openLb(this)"><img src="524831186_122117689016923651_6158256218087913440_n.jpg" alt="Eagles brotherhood" loading="lazy"/><div class="overlay"></div><div class="caption"><div class="caption-text">Brotherhood</div></div></div>
+      <div class="photo-card" onclick="openLb(this)"><img src="524886547_122117689754923651_4215112844061734798_n.jpg" alt="Eagles together" loading="lazy"/><div class="overlay"></div><div class="caption"><div class="caption-text">Eagles Together</div></div></div>
+      <div class="photo-card" onclick="openLb(this)"><img src="524903634_122117689430923651_4493500806570108809_n.jpg" alt="Eagles camaraderie" loading="lazy"/><div class="overlay"></div><div class="caption"><div class="caption-text">Camaraderie</div></div></div>
+      <div class="photo-card" onclick="openLb(this)"><img src="524926407_122117688092923651_5650806672777008773_n.jpg" alt="Group photo" loading="lazy"/><div class="overlay"></div><div class="caption"><div class="caption-text">Group Photo</div></div></div>
+      <div class="photo-card" onclick="openLb(this)"><img src="525122158_122117689154923651_8474662130467622655_n.jpg" alt="Eagles meeting" loading="lazy"/><div class="overlay"></div><div class="caption"><div class="caption-text">Eagles Meeting</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ── LIGHTBOX ── -->
+<div class="lightbox" id="lightbox" onclick="closeLb(event)">
+  <button class="lb-close" onclick="closeLbBtn()">&times;</button>
+  <button class="lb-prev" onclick="lbNav(-1)">&#8249;</button>
+  <div class="lb-inner">
+    <img id="lb-img" src="" alt="" />
+  </div>
+  <button class="lb-next" onclick="lbNav(1)">&#8250;</button>
+  <div class="lb-caption" id="lb-cap"></div>
+</div>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div style="max-width:1200px;margin:0 auto;padding:0 48px">
+    <div style="display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px;margin-bottom:48px">
+      <div>
+        <img src="logo_IFOE.jpg" style="width:56px;height:56px;object-fit:contain;margin-bottom:16px;filter:drop-shadow(0 0 12px rgba(245,184,0,.4))" alt="IFOE" />
+        <div style="font-family:'Cinzel',serif;font-size:15px;font-weight:700;color:var(--white);margin-bottom:8px">Philippine Eagles</div>
+        <div style="font-size:12px;color:rgba(255,255,255,.35);letter-spacing:1px;line-height:1.7;max-width:240px">International Fraternal Order of Eagles — First Philippine-Born International Fraternal Socio-Civic Organization.</div>
+      </div>
+      <div>
+        <div style="font-family:'Cinzel',serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:18px">Navigate</div>
+        <ul style="list-style:none">
+          <li style="margin-bottom:10px"><a href="index.html" style="font-size:12.5px;color:rgba(255,255,255,.45);text-decoration:none">Home</a></li>
+          <li style="margin-bottom:10px"><a href="index.html#about" style="font-size:12.5px;color:rgba(255,255,255,.45);text-decoration:none">About</a></li>
+          <li style="margin-bottom:10px"><a href="index.html#programs" style="font-size:12.5px;color:rgba(255,255,255,.45);text-decoration:none">Programs</a></li>
+          <li style="margin-bottom:10px"><a href="gallery.html" style="font-size:12.5px;color:var(--gold);text-decoration:none">Gallery</a></li>
+          <li style="margin-bottom:10px"><a href="our-clubs.html" style="font-size:12.5px;color:rgba(255,255,255,.45);text-decoration:none">Our Clubs</a></li>
+        </ul>
+      </div>
+      <div>
+        <div style="font-family:'Cinzel',serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:18px">Join Us</div>
+        <ul style="list-style:none">
+          <li style="margin-bottom:10px"><a href="https://www.facebook.com/messages/t/61577709546547" target="_blank" style="font-size:12.5px;color:rgba(255,255,255,.45);text-decoration:none">Become a Member</a></li>
+          <li style="margin-bottom:10px"><a href="https://www.facebook.com/messages/t/61577709546547" target="_blank" style="font-size:12.5px;color:rgba(255,255,255,.45);text-decoration:none">Become a Sponsor</a></li>
+          <li style="margin-bottom:10px"><a href="index.html#contact" style="font-size:12.5px;color:rgba(255,255,255,.45);text-decoration:none">Contact Us</a></li>
+        </ul>
+      </div>
+    </div>
+    <div style="border-top:1px solid rgba(255,255,255,.06);padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
+      <div style="font-size:11px;color:rgba(255,255,255,.25);letter-spacing:.5px">© 2026 International Fraternal Order of Eagles – Philippine Eagles. All Rights Reserved.</div>
+      <div style="font-family:'Cinzel',serif;font-size:10px;color:var(--gold);letter-spacing:2px;opacity:.6">Mabuhay Ang May Pusong Agila!</div>
+    </div>
+  </div>
+</footer>
+
+<!-- ── FAB ── -->
+<div class="fab-wrap">
+  <div class="fab-tip">Chat with us on Messenger</div>
+  <a href="https://www.facebook.com/messages/t/61577709546547" target="_blank" rel="noopener" class="fab">
+    <svg viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 4.974 0 11.111c0 3.498 1.744 6.614 4.469 8.664V24l4.088-2.242c1.092.301 2.246.464 3.443.464 6.627 0 12-4.975 12-11.111C24 4.974 18.627 0 12 0zm1.191 14.963l-3.055-3.26-5.963 3.26 6.559-6.963 3.131 3.26 5.889-3.26-6.561 6.963z"/></svg>
+  </a>
+</div>
+
+<script>
+  // NAV SCROLL
+  const nb=document.getElementById('navbar');
+  window.addEventListener('scroll',()=>nb.classList.toggle('scrolled',scrollY>50));
+
+  // TABS
+  const sectionMap={
+    all:'sec-all',
+    convention:'sec-convention',
+    chartering:'sec-chartering',
+    outreach:'sec-outreach',
+    diplomatic:'sec-diplomatic',
+    brotherhood:'sec-brotherhood'
+  };
+  function showTab(key){
+    document.querySelectorAll('.gallery-section').forEach(s=>s.classList.remove('visible'));
+    document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+    document.getElementById('sec-'+key).classList.add('visible');
+    event.currentTarget.classList.add('active');
+    window.scrollTo({top:document.querySelector('.tabs-wrap').offsetTop-90,behavior:'smooth'});
+  }
+
+  // LIGHTBOX
+  let lbImages=[];
+  let lbIndex=0;
+  function openLb(card){
+    const img=card.querySelector('img');
+    const cap=card.querySelector('.caption-text');
+    // build image list from current visible section
+    const sec=card.closest('.gallery-section');
+    const imgs=[...sec.querySelectorAll('.photo-card')];
+    lbImages=imgs.map(c=>({src:c.querySelector('img').src,alt:c.querySelector('.caption-text')?.textContent||''}));
+    lbIndex=imgs.indexOf(card);
+    setLb();
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow='hidden';
+  }
+  function setLb(){
+    const d=lbImages[lbIndex];
+    document.getElementById('lb-img').src=d.src;
+    document.getElementById('lb-img').alt=d.alt;
+    document.getElementById('lb-cap').textContent=d.alt;
+  }
+  function lbNav(dir){
+    lbIndex=(lbIndex+dir+lbImages.length)%lbImages.length;
+    setLb();
+  }
+  function closeLb(e){if(e.target===document.getElementById('lightbox'))closeLbBtn();}
+  function closeLbBtn(){
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow='';
+  }
+  document.addEventListener('keydown',e=>{
+    const lb=document.getElementById('lightbox');
+    if(!lb.classList.contains('open'))return;
+    if(e.key==='Escape')closeLbBtn();
+    if(e.key==='ArrowLeft')lbNav(-1);
+    if(e.key==='ArrowRight')lbNav(1);
+  });
+</script>
+</body>
+</html>
