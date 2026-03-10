@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calendar – IFOE Philippine Eagles</title>
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="shortcut icon" href="favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600;700&family=Lato:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --gold:#F5B800; --gold-light:#FFD84D; --gold-dark:#C48A00;
+      --black:#0A0A0A; --dark:#161616; --dark-mid:#1E1E1E;
+      --navy:#0D2B55; --navy-deep:#091F40; --white:#FFFFFF;
+      --nav-h:80px;
+    }
+    *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+    html { scroll-behavior:smooth; }
+    body { font-family:'Lato',sans-serif; background:var(--black); color:var(--white); overflow-x:hidden; }
+    ::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--black)}::-webkit-scrollbar-thumb{background:var(--gold-dark);border-radius:3px}
+
+    /* ── NAV ── */
+    nav { position:fixed; top:0; left:0; right:0; height:var(--nav-h); z-index:1000; display:flex; align-items:center; justify-content:space-between; padding:0 40px; background:rgba(10,10,10,.96); backdrop-filter:blur(16px); border-bottom:1px solid rgba(245,184,0,.15); transition:all .4s; }
+    nav.scrolled { border-bottom-color:rgba(245,184,0,.38); box-shadow:0 4px 32px rgba(0,0,0,.5); }
+    .nav-logo { display:flex; align-items:center; gap:12px; text-decoration:none; }
+    .nav-logo img { width:48px; height:48px; object-fit:contain; filter:drop-shadow(0 0 8px rgba(245,184,0,.5)); transition:transform .3s; }
+    .nav-logo:hover img { transform:scale(1.08) rotate(-4deg); }
+    .nav-logo-text { display:flex; flex-direction:column; line-height:1.15; }
+    .nav-logo-text .top { font-family:'Cinzel',serif; font-size:8.5px; letter-spacing:2.5px; color:var(--gold); text-transform:uppercase; }
+    .nav-logo-text .bot { font-family:'Cinzel',serif; font-size:13px; font-weight:700; color:var(--white); letter-spacing:.8px; }
+    .nav-links { display:flex; align-items:center; list-style:none; }
+    .nav-links a { font-family:'Cinzel',serif; font-size:9.5px; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:rgba(255,255,255,.6); text-decoration:none; padding:8px 13px; transition:color .25s; position:relative; }
+    .nav-links a::after { content:''; position:absolute; bottom:3px; left:13px; right:13px; height:1px; background:var(--gold); transform:scaleX(0); transition:transform .3s; }
+    .nav-links a:hover, .nav-links a.active { color:var(--gold); }
+    .nav-links a:hover::after, .nav-links a.active::after { transform:scaleX(1); }
+    .nav-cta { display:flex; gap:8px; }
+    .btn-nav { font-family:'Cinzel',serif; font-size:9px; font-weight:700; letter-spacing:1.8px; text-transform:uppercase; padding:8px 16px; border-radius:2px; text-decoration:none; transition:all .3s; cursor:pointer; border:none; white-space:nowrap; display:inline-flex; align-items:center; gap:6px; }
+    .btn-outline { color:var(--gold); border:1px solid var(--gold); background:transparent; }
+    .btn-outline:hover { background:rgba(245,184,0,.1); }
+    .btn-solid { color:var(--black); background:var(--gold); }
+    .btn-solid:hover { background:var(--gold-light); box-shadow:0 4px 18px rgba(245,184,0,.45); }
+    @media(max-width:768px){ nav{padding:0 20px} .nav-links,.nav-cta{display:none} }
+
+    /* ── UTILITIES ── */
+    .container { max-width:1200px; margin:0 auto; padding:0 48px; }
+    @media(max-width:600px){ .container{padding:0 20px} }
+
+    /* ── PAGE HERO ── */
+    .page-hero { padding-top:var(--nav-h); background:linear-gradient(180deg,rgba(13,43,85,.3) 0%,rgba(10,10,10,1) 100%); position:relative; overflow:hidden; text-align:center; padding-bottom:56px; }
+    .page-hero::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 70% 50% at 50% 0%, rgba(245,184,0,.07) 0%, transparent 70%); }
+    .ph-inner { position:relative; z-index:2; padding-top:52px; }
+    .ph-eyebrow { font-family:'Cinzel',serif; font-size:10px; font-weight:700; letter-spacing:5px; text-transform:uppercase; color:var(--gold); margin-bottom:14px; display:flex; align-items:center; justify-content:center; gap:14px; }
+    .ph-eyebrow::before,.ph-eyebrow::after { content:''; display:block; width:40px; height:1px; background:linear-gradient(90deg,transparent,var(--gold)); }
+    .ph-eyebrow::after { background:linear-gradient(90deg,var(--gold),transparent); }
+    .ph-title { font-family:'Cinzel Decorative',cursive; font-size:clamp(28px,5vw,56px); font-weight:900; color:var(--white); line-height:1.08; margin-bottom:12px; }
+    .ph-title span { color:var(--gold); }
+    .ph-sub { font-size:14px; color:rgba(255,255,255,.4); letter-spacing:1.5px; max-width:520px; margin:0 auto; }
+
+    /* ── TICKER ── */
+    .ticker { background:var(--gold); overflow:hidden; padding:9px 0; border-top:2px solid var(--gold-dark); border-bottom:2px solid var(--gold-dark); }
+    .ticker-track { display:flex; white-space:nowrap; animation:tck 38s linear infinite; }
+    .ticker-track:hover { animation-play-state:paused; }
+    @keyframes tck { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+    .ti { font-family:'Cinzel',serif; font-size:10px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:var(--black); padding:0 52px; }
+    .td { color:var(--navy); margin:0 6px; }
+
+    /* ── REGION FILTER ── */
+    .cal-controls { padding:40px 0 32px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; }
+    .region-filters { display:flex; gap:8px; flex-wrap:wrap; }
+    .rf-btn { font-family:'Cinzel',serif; font-size:9px; font-weight:700; letter-spacing:2px; text-transform:uppercase; padding:8px 16px; border:1px solid rgba(245,184,0,.2); background:transparent; color:rgba(255,255,255,.5); cursor:pointer; transition:all .25s; border-radius:2px; }
+    .rf-btn:hover { border-color:rgba(245,184,0,.5); color:rgba(255,255,255,.8); }
+    .rf-btn.active { background:var(--gold); color:var(--black); border-color:var(--gold); }
+    .cal-nav { display:flex; align-items:center; gap:16px; }
+    .cal-nav-btn { width:36px; height:36px; border:1px solid rgba(245,184,0,.25); background:transparent; color:var(--gold); font-size:16px; cursor:pointer; transition:all .25s; display:flex; align-items:center; justify-content:center; }
+    .cal-nav-btn:hover { background:rgba(245,184,0,.1); border-color:var(--gold); }
+    .cal-month-label { font-family:'Cinzel Decorative',cursive; font-size:20px; font-weight:700; color:var(--white); min-width:220px; text-align:center; }
+    .cal-month-label span { color:var(--gold); }
+
+    /* ── REGION COLOR DOTS ── */
+    :root {
+      --c-cebu:#F5B800;
+      --c-mindanao:#4FC3F7;
+      --c-manila:#E57373;
+      --c-visayas:#81C784;
+      --c-intl:#CE93D8;
+    }
+
+    /* ── CALENDAR GRID ── */
+    .cal-wrap { padding-bottom:80px; }
+    .cal-grid { display:grid; grid-template-columns:repeat(7,1fr); border-left:1px solid rgba(245,184,0,.08); border-top:1px solid rgba(245,184,0,.08); }
+    .cal-dow { background:rgba(245,184,0,.05); border-right:1px solid rgba(245,184,0,.08); border-bottom:1px solid rgba(245,184,0,.08); padding:12px 0; text-align:center; font-family:'Cinzel',serif; font-size:9px; font-weight:700; letter-spacing:2.5px; text-transform:uppercase; color:var(--gold); }
+    .cal-cell { border-right:1px solid rgba(245,184,0,.08); border-bottom:1px solid rgba(245,184,0,.08); min-height:120px; padding:10px 8px; background:var(--dark); transition:background .2s; position:relative; vertical-align:top; }
+    .cal-cell:hover { background:rgba(245,184,0,.03); }
+    .cal-cell.other-month { background:rgba(10,10,10,.6); }
+    .cal-cell.other-month .cal-day-num { opacity:.2; }
+    .cal-cell.today { background:rgba(13,43,85,.35); }
+    .cal-cell.today .cal-day-num { color:var(--gold); font-weight:700; }
+    .cal-day-num { font-family:'Cinzel',serif; font-size:11px; color:rgba(255,255,255,.35); margin-bottom:6px; display:block; }
+    .cal-today-dot { display:inline-block; width:20px; height:20px; background:var(--gold); border-radius:50%; text-align:center; line-height:20px; font-family:'Cinzel',serif; font-size:11px; font-weight:700; color:var(--black); }
+
+    /* ── EVENT CHIPS ── */
+    .cal-event { display:flex; align-items:center; gap:5px; padding:4px 6px; margin-bottom:3px; border-radius:2px; cursor:pointer; transition:opacity .2s; background:rgba(255,255,255,.04); border-left:3px solid; }
+    .cal-event:hover { opacity:.8; }
+    .cal-event-dot { width:6px; height:6px; border-radius:50%; flex-shrink:0; }
+    .cal-event-title { font-size:10px; color:rgba(255,255,255,.75); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; line-height:1.3; }
+    .cal-event[data-region="Cebu"]        { border-color:var(--c-cebu); }
+    .cal-event[data-region="Mindanao"]    { border-color:var(--c-mindanao); }
+    .cal-event[data-region="Manila"]      { border-color:var(--c-manila); }
+    .cal-event[data-region="Visayas"]     { border-color:var(--c-visayas); }
+    .cal-event[data-region="International"]{ border-color:var(--c-intl); }
+    .cal-event-dot[data-region="Cebu"]         { background:var(--c-cebu); }
+    .cal-event-dot[data-region="Mindanao"]     { background:var(--c-mindanao); }
+    .cal-event-dot[data-region="Manila"]       { background:var(--c-manila); }
+    .cal-event-dot[data-region="Visayas"]      { background:var(--c-visayas); }
+    .cal-event-dot[data-region="International"]{ background:var(--c-intl); }
+
+    /* ── LEGEND ── */
+    .cal-legend { display:flex; gap:20px; flex-wrap:wrap; margin-bottom:24px; }
+    .lg-item { display:flex; align-items:center; gap:7px; font-family:'Cinzel',serif; font-size:9px; letter-spacing:1.5px; text-transform:uppercase; color:rgba(255,255,255,.45); }
+    .lg-dot { width:10px; height:10px; border-radius:50%; flex-shrink:0; }
+
+    /* ── EVENT MODAL ── */
+    .modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,.75); backdrop-filter:blur(6px); z-index:2000; display:flex; align-items:center; justify-content:center; padding:24px; opacity:0; pointer-events:none; transition:opacity .3s; }
+    .modal-overlay.open { opacity:1; pointer-events:all; }
+    .modal { background:var(--dark); border:1px solid rgba(245,184,0,.2); width:100%; max-width:520px; position:relative; transform:translateY(20px); transition:transform .3s; }
+    .modal-overlay.open .modal { transform:translateY(0); }
+    .modal-top { background:linear-gradient(135deg,rgba(13,43,85,.5),rgba(10,10,10,.8)); padding:28px 28px 20px; border-bottom:1px solid rgba(245,184,0,.1); position:relative; }
+    .modal-region-badge { font-family:'Cinzel',serif; font-size:8px; font-weight:700; letter-spacing:2.5px; text-transform:uppercase; padding:4px 10px; border-radius:2px; display:inline-block; margin-bottom:10px; }
+    .modal-title { font-family:'Cinzel Decorative',cursive; font-size:20px; font-weight:700; color:var(--white); line-height:1.2; margin-bottom:0; }
+    .modal-close { position:absolute; top:16px; right:16px; width:32px; height:32px; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.1); color:rgba(255,255,255,.5); font-size:18px; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all .2s; }
+    .modal-close:hover { background:rgba(245,184,0,.1); color:var(--gold); border-color:var(--gold); }
+    .modal-body { padding:24px 28px; }
+    .modal-row { display:flex; gap:12px; margin-bottom:16px; align-items:flex-start; }
+    .modal-icon { width:36px; height:36px; background:rgba(245,184,0,.08); border:1px solid rgba(245,184,0,.15); display:flex; align-items:center; justify-content:center; font-size:16px; flex-shrink:0; }
+    .modal-detail-label { font-family:'Cinzel',serif; font-size:8.5px; letter-spacing:2px; text-transform:uppercase; color:var(--gold); margin-bottom:3px; }
+    .modal-detail-val { font-size:13.5px; color:rgba(255,255,255,.75); line-height:1.5; }
+    .modal-desc { font-size:13.5px; line-height:1.8; color:rgba(255,255,255,.55); margin-top:4px; padding-top:16px; border-top:1px solid rgba(245,184,0,.08); }
+    .modal-footer { padding:16px 28px 24px; display:flex; gap:10px; }
+    .btn-modal-primary { font-family:'Cinzel',serif; font-size:9px; font-weight:700; letter-spacing:2px; text-transform:uppercase; padding:10px 20px; background:var(--gold); color:var(--black); border:none; cursor:pointer; transition:all .3s; text-decoration:none; display:inline-flex; align-items:center; gap:6px; }
+    .btn-modal-primary:hover { background:var(--gold-light); }
+    .btn-modal-ghost { font-family:'Cinzel',serif; font-size:9px; font-weight:700; letter-spacing:2px; text-transform:uppercase; padding:10px 20px; background:transparent; color:rgba(255,255,255,.5); border:1px solid rgba(255,255,255,.15); cursor:pointer; transition:all .3s; }
+    .btn-modal-ghost:hover { border-color:var(--gold); color:var(--gold); }
+
+    /* ── UPCOMING SIDEBAR STRIP ── */
+    .upcoming-strip { background:var(--dark); border-top:2px solid rgba(245,184,0,.1); padding:56px 0; }
+    .us-head { margin-bottom:36px; }
+    .us-head .s-label { font-family:'Cinzel',serif; font-size:10px; font-weight:700; letter-spacing:4.5px; text-transform:uppercase; color:var(--gold); margin-bottom:10px; display:flex; align-items:center; gap:10px; }
+    .us-head .s-label::before { content:''; display:inline-block; width:26px; height:1px; background:var(--gold); }
+    .us-head h2 { font-family:'Cinzel Decorative',cursive; font-size:clamp(22px,3vw,36px); font-weight:700; color:var(--white); }
+    .us-head h2 span { color:var(--gold); }
+    .upcoming-list { display:flex; flex-direction:column; gap:3px; }
+    .upcoming-item { display:grid; grid-template-columns:80px 1fr auto; gap:20px; align-items:center; padding:18px 24px; background:var(--dark-mid); border-left:3px solid; transition:all .3s; cursor:pointer; }
+    .upcoming-item:hover { background:rgba(245,184,0,.05); transform:translateX(4px); }
+    .upcoming-item[data-region="Cebu"]         { border-color:var(--c-cebu); }
+    .upcoming-item[data-region="Mindanao"]     { border-color:var(--c-mindanao); }
+    .upcoming-item[data-region="Manila"]       { border-color:var(--c-manila); }
+    .upcoming-item[data-region="Visayas"]      { border-color:var(--c-visayas); }
+    .upcoming-item[data-region="International"]{ border-color:var(--c-intl); }
+    .ui-date { text-align:center; }
+    .ui-date-day { font-family:'Cinzel Decorative',cursive; font-size:28px; font-weight:900; color:var(--gold); line-height:1; }
+    .ui-date-mon { font-family:'Cinzel',serif; font-size:9px; letter-spacing:2px; text-transform:uppercase; color:rgba(255,255,255,.4); margin-top:2px; }
+    .ui-info { }
+    .ui-title { font-family:'Cinzel',serif; font-size:13px; font-weight:700; color:var(--white); margin-bottom:4px; }
+    .ui-meta { font-size:12px; color:rgba(255,255,255,.4); display:flex; gap:12px; flex-wrap:wrap; }
+    .ui-meta span { display:flex; align-items:center; gap:4px; }
+    .ui-region-pill { font-family:'Cinzel',serif; font-size:8px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; padding:4px 10px; border-radius:2px; white-space:nowrap; }
+
+    /* ── FOOTER ── */
+    footer { background:var(--dark); border-top:1px solid rgba(245,184,0,.12); padding:64px 0 32px; }
+    .footer-grid { display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:40px; margin-bottom:48px; }
+    @media(max-width:900px){ .footer-grid{grid-template-columns:1fr 1fr} }
+    @media(max-width:540px){ .footer-grid{grid-template-columns:1fr} }
+    .footer-logo { width:70px; margin-bottom:14px; filter:drop-shadow(0 0 8px rgba(245,184,0,.28)); }
+    .footer-brand { font-family:'Cinzel',serif; font-size:14px; font-weight:700; color:var(--white); margin-bottom:4px; }
+    .footer-tag { font-family:'Cinzel',serif; font-size:9px; letter-spacing:2px; text-transform:uppercase; color:var(--gold); margin-bottom:12px; }
+    .footer-desc { font-size:12.5px; color:rgba(255,255,255,.35); line-height:1.7; max-width:260px; }
+    .social-row { display:flex; gap:10px; margin-top:16px; }
+    .soc-btn { width:34px; height:34px; border:1px solid rgba(245,184,0,.25); display:flex; align-items:center; justify-content:center; font-size:14px; color:rgba(255,255,255,.5); text-decoration:none; transition:all .3s; }
+    .soc-btn:hover { border-color:var(--gold); color:var(--gold); }
+    .fc-title { font-family:'Cinzel',serif; font-size:9px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:var(--gold); margin-bottom:18px; }
+    .fc-links { list-style:none; }
+    .fc-links li { margin-bottom:10px; }
+    .fc-links a { font-size:12.5px; color:rgba(255,255,255,.45); text-decoration:none; transition:color .25s; }
+    .fc-links a:hover { color:var(--gold); }
+    .footer-bottom { border-top:1px solid rgba(255,255,255,.06); padding-top:24px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; }
+    .footer-copy { font-size:11px; color:rgba(255,255,255,.25); letter-spacing:.5px; }
+    .footer-motto { font-family:'Cinzel',serif; font-size:10px; color:var(--gold); letter-spacing:2px; opacity:.6; }
+
+    /* FAB */
+    .fab-wrap { position:fixed; bottom:28px; right:28px; z-index:999; display:flex; align-items:center; gap:10px; }
+    .fab-tip { font-size:11px; background:rgba(10,10,10,.9); border:1px solid rgba(245,184,0,.3); color:var(--gold); padding:6px 12px; border-radius:20px; opacity:0; transform:translateX(8px); transition:all .3s; white-space:nowrap; }
+    .fab-wrap:hover .fab-tip { opacity:1; transform:translateX(0); }
+    .fab { width:52px; height:52px; border-radius:50%; background:var(--gold); display:flex; align-items:center; justify-content:center; box-shadow:0 4px 20px rgba(245,184,0,.45); transition:transform .3s,box-shadow .3s; }
+    .fab:hover { transform:scale(1.1); box-shadow:0 8px 32px rgba(245,184,0,.65); }
+    .fab svg { width:26px; height:26px; fill:var(--black); }
+
+    @media(max-width:700px){
+      .cal-cell { min-height:64px; padding:6px 4px; }
+      .cal-event-title { display:none; }
+      .upcoming-item { grid-template-columns:56px 1fr; }
+      .ui-region-pill { display:none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════ NAV ══════════ -->
+<nav id="navbar">
+  <a href="index.html" class="nav-logo">
+    <img src="logo IFOE.jpg" alt="IFOE Philippine Eagles" />
+    <div class="nav-logo-text">
+      <span class="top">International Fraternal Order of Eagles</span>
+      <span class="bot">Philippine Eagles</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About Us</a></li>
+    <li><a href="our-clubs.html">Our Clubs</a></li>
+    <li><a href="sponsors.html">Sponsors</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="calendar.html" class="active">Calendar</a></li>
+  </ul>
+  <div class="nav-cta">
+    <a href="about.html" class="btn-nav btn-outline">About Us</a>
+    <a href="https://www.facebook.com/messages/t/61577709546547" target="_blank" rel="noopener" class="btn-nav btn-solid">Join Us</a>
+  </div>
+</nav>
+
+<!-- ══════════ HERO ══════════ -->
+<div class="page-hero">
+  <div class="ph-inner">
+    <div class="ph-eyebrow">Events &amp; Activities</div>
+    <h1 class="ph-title">Eagles <span>Calendar</span></h1>
+    <p class="ph-sub">Brotherhood in action — across every region, every month</p>
+  </div>
+</div>
+
+<!-- ── TICKER ── -->
+<div class="ticker">
+  <div class="ticker-track">
+    <span class="ti">Community Outreach</span><span class="td">◆</span>
+    <span class="ti">Chapter Meetings</span><span class="td">◆</span>
+    <span class="ti">Feeding Programs</span><span class="td">◆</span>
+    <span class="ti">Brotherhood Events</span><span class="td">◆</span>
+    <span class="ti">Diplomatic Visits</span><span class="td">◆</span>
+    <span class="ti">Induction Ceremonies</span><span class="td">◆</span>
+    <span class="ti">International Conventions</span><span class="td">◆</span>
+    <span class="ti">Community Outreach</span><span class="td">◆</span>
+    <span class="ti">Chapter Meetings</span><span class="td">◆</span>
+    <span class="ti">Feeding Programs</span><span class="td">◆</span>
+    <span class="ti">Brotherhood Events</span><span class="td">◆</span>
+    <span class="ti">Diplomatic Visits</span><span class="td">◆</span>
+    <span class="ti">Induction Ceremonies</span><span class="td">◆</span>
+    <span class="ti">International Conventions</span><span class="td">◆</span>
+  </div>
+</div>
+
+<!-- ══════════ CALENDAR ══════════ -->
+<div class="cal-wrap">
+  <div class="container">
+
+    <!-- Controls -->
+    <div class="cal-controls">
+      <div class="region-filters">
+        <button class="rf-btn active" data-filter="all">All Regions</button>
+        <button class="rf-btn" data-filter="Cebu">Cebu</button>
+        <button class="rf-btn" data-filter="Visayas">Visayas</button>
+        <button class="rf-btn" data-filter="Mindanao">Mindanao</button>
+        <button class="rf-btn" data-filter="Manila">Manila</button>
+        <button class="rf-btn" data-filter="International">International</button>
+      </div>
+      <div class="cal-nav">
+        <button class="cal-nav-btn" id="prevBtn">&#8592;</button>
+        <div class="cal-month-label" id="monthLabel"></div>
+        <button class="cal-nav-btn" id="nextBtn">&#8594;</button>
+      </div>
+    </div>
+
+    <!-- Legend -->
+    <div class="cal-legend">
+      <div class="lg-item"><div class="lg-dot" style="background:var(--c-cebu)"></div> Cebu</div>
+      <div class="lg-item"><div class="lg-dot" style="background:var(--c-visayas)"></div> Visayas</div>
+      <div class="lg-item"><div class="lg-dot" style="background:var(--c-mindanao)"></div> Mindanao</div>
+      <div class="lg-item"><div class="lg-dot" style="background:var(--c-manila)"></div> Manila</div>
+      <div class="lg-item"><div class="lg-dot" style="background:var(--c-intl)"></div> International</div>
+    </div>
+
+    <!-- Grid renders here -->
+    <div class="cal-grid" id="calGrid"></div>
+
+  </div>
+</div>
+
+<!-- ══════════ UPCOMING LIST ══════════ -->
+<div class="upcoming-strip">
+  <div class="container">
+    <div class="us-head">
+      <p class="s-label">What's Next</p>
+      <h2>Upcoming <span>Events</span></h2>
+    </div>
+    <div class="upcoming-list" id="upcomingList"></div>
+  </div>
+</div>
+
+<!-- ══════════ EVENT MODAL ══════════ -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal" id="modal">
+    <div class="modal-top">
+      <button class="modal-close" id="modalClose">✕</button>
+      <div class="modal-region-badge" id="modalBadge"></div>
+      <div class="modal-title" id="modalTitle"></div>
+    </div>
+    <div class="modal-body">
+      <div class="modal-row">
+        <div class="modal-icon">📅</div>
+        <div>
+          <div class="modal-detail-label">Date &amp; Time</div>
+          <div class="modal-detail-val" id="modalDateTime"></div>
+        </div>
+      </div>
+      <div class="modal-row">
+        <div class="modal-icon">📍</div>
+        <div>
+          <div class="modal-detail-label">Location</div>
+          <div class="modal-detail-val" id="modalLocation"></div>
+        </div>
+      </div>
+      <div class="modal-row">
+        <div class="modal-icon">🦅</div>
+        <div>
+          <div class="modal-detail-label">Region / Club</div>
+          <div class="modal-detail-val" id="modalRegion"></div>
+        </div>
+      </div>
+      <div class="modal-row">
+        <div class="modal-icon">📞</div>
+        <div>
+          <div class="modal-detail-label">Contact Person</div>
+          <div class="modal-detail-val" id="modalContact"></div>
+        </div>
+      </div>
+      <div class="modal-desc" id="modalDesc"></div>
+    </div>
+    <div class="modal-footer">
+      <a href="https://www.facebook.com/messages/t/61577709546547" target="_blank" rel="noopener" class="btn-modal-primary">RSVP via Messenger →</a>
+      <button class="btn-modal-ghost" id="modalCloseBtn">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <img src="logo IFOE.jpg" alt="IFOE Logo" class="footer-logo" />
+        <div class="footer-brand">International Fraternal Order of Eagles</div>
+        <div class="footer-tag">Philippine Eagles · Est. 2025</div>
+        <p class="footer-desc">A Philippine-born international fraternal socio-civic organization dedicated to humanitarian service and brotherhood. Founded by Atty. Jun Salatandre.</p>
+        <div class="social-row">
+          <a href="https://www.facebook.com/profile.php?id=61577709546547" target="_blank" rel="noopener" class="soc-btn">f</a>
+          <a href="https://www.facebook.com/messages/t/61577709546547" target="_blank" rel="noopener" class="soc-btn" style="font-size:15px">💬</a>
+        </div>
+      </div>
+      <div>
+        <div class="fc-title">Navigate</div>
+        <ul class="fc-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="our-clubs.html">Our Clubs</a></li>
+          <li><a href="sponsors.html">Sponsors</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="calendar.html">Calendar</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="fc-title">Get Involved</div>
+        <ul class="fc-links">
+          <li><a href="https://www.facebook.com/messages/t/61577709546547" target="_blank" rel="noopener">Become a Member</a></li>
+          <li><a href="https://www.facebook.com/messages/t/61577709546547" target="_blank" rel="noopener">Become a Sponsor</a></li>
+          <li><a href="index.html#newsletter">Join Newsletter</a></li>
+          <li><a href="https://www.facebook.com/messages/t/61577709546547" target="_blank" rel="noopener">Ask a Question</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="fc-title">Our Values</div>
+        <ul class="fc-links">
+          <li><a href="#">Humanitarian Service</a></li>
+          <li><a href="#">Brotherhood First</a></li>
+          <li><a href="#">Deo Et Patria</a></li>
+          <li><a href="#">Non-Political</a></li>
+          <li><a href="#">International Unity</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2026 International Fraternal Order of Eagles – Philippine Eagles. Founded by Atty. Jun Salatandre. All Rights Reserved.</div>
+      <div class="footer-motto">Mabuhay Ang May Pusong Agila!</div>
+    </div>
+  </div>
+</footer>
+
+<!-- FAB -->
+<div class="fab-wrap">
+  <div class="fab-tip">Chat with us on Messenger</div>
+  <a href="https://www.facebook.com/messages/t/61577709546547" target="_blank" rel="noopener" class="fab">
+    <svg viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 4.974 0 11.111c0 3.498 1.744 6.614 4.469 8.664V24l4.088-2.242c1.092.301 2.246.464 3.443.464 6.627 0 12-4.975 12-11.111C24 4.974 18.627 0 12 0zm1.191 14.963l-3.055-3.26-5.963 3.26 6.559-6.963 3.131 3.26 5.889-3.26-6.561 6.963z"/></svg>
+  </a>
+</div>
+
+<script>
+/* ═══════════════════════════════════════════════════
+   EVENTS DATA
+   To add a new event, copy one object and fill it in.
+   date format: "YYYY-MM-DD"
+═══════════════════════════════════════════════════ */
+const EVENTS = [
+  {
+    id: 1,
+    title: "Community Feeding Program",
+    date: "2026-03-15",
+    time: "8:00 AM – 12:00 PM",
+    location: "Barangay Luz, Cebu City",
+    region: "Cebu",
+    club: "Sentro Sugbo International Eagles Club",
+    contact: "Eagle-in-Charge · msg via Messenger",
+    desc: "Monthly community feeding program for children and senior citizens in Barangay Luz. Eagles are requested to wear their black uniform. Bring canned goods for additional donation."
+  },
+  {
+    id: 2,
+    title: "Chapter Meeting – Metro Sugbo",
+    date: "2026-03-18",
+    time: "6:00 PM – 9:00 PM",
+    location: "Cebu City Sports Center, Cebu City",
+    region: "Cebu",
+    club: "Metro Sugbo International Eagles Club",
+    contact: "Eagle-in-Charge · msg via Messenger",
+    desc: "Regular monthly chapter meeting. Agenda includes Q2 activity planning, membership updates, and treasurer's report. All active members are expected to attend."
+  },
+  {
+    id: 3,
+    title: "Courtesy Call – Mayor's Office",
+    date: "2026-03-22",
+    time: "10:00 AM – 12:00 PM",
+    location: "Mandaue City Hall, Mandaue City",
+    region: "Cebu",
+    club: "Central Visayas International Eagles Region",
+    contact: "Eagle Gilbert A. Sebandal · msg via Messenger",
+    desc: "Formal courtesy call on the Mandaue City Mayor's Office. IFOE leadership and regional officers will attend. Business attire required. Coordination for upcoming city-wide feeding program."
+  },
+  {
+    id: 4,
+    title: "Medical Mission",
+    date: "2026-04-05",
+    time: "7:00 AM – 3:00 PM",
+    location: "Poblacion, Consolacion, Cebu",
+    region: "Cebu",
+    club: "Sentro Sugbo International Eagles Club",
+    contact: "Eagle-in-Charge · msg via Messenger",
+    desc: "Free medical and dental consultations for residents of Consolacion. Partner doctors and nurses will be on-site. Eagles to assist in crowd management and logistics. Medicines provided."
+  },
+  {
+    id: 5,
+    title: "Chapter Fellowship Night",
+    date: "2026-04-10",
+    time: "7:00 PM – 10:00 PM",
+    location: "Visayas Legend Hall, Cebu City",
+    region: "Visayas",
+    club: "Visayas Legend International Eagles Club",
+    contact: "Eagle-in-Charge · msg via Messenger",
+    desc: "Quarterly brotherhood fellowship dinner. Open to all Eagles and their families. Dress code: smart casual. Program includes recognition of outstanding Eagles and announcement of Q2 activities."
+  },
+  {
+    id: 6,
+    title: "Scholarship Awarding",
+    date: "2026-04-18",
+    time: "9:00 AM – 12:00 PM",
+    location: "University of Cebu, Lapu-Lapu City",
+    region: "Cebu",
+    club: "Central Visayas International Eagles Region",
+    contact: "Eagle Gilbert A. Sebandal · msg via Messenger",
+    desc: "Annual scholarship awarding ceremony for deserving students under the IFOE Education Support Program. Three scholars will receive full academic year sponsorships."
+  },
+  {
+    id: 7,
+    title: "Feeding Program – Mindanao",
+    date: "2026-04-20",
+    time: "8:00 AM – 1:00 PM",
+    location: "Cagayan de Oro City, Mindanao",
+    region: "Mindanao",
+    club: "IFOE Mindanao Chapter",
+    contact: "Eagle-in-Charge · msg via Messenger",
+    desc: "Community feeding drive for children and families in underserved barangays of CDO. Local Eagles chapter coordinating with barangay officials. Volunteers welcome."
+  },
+  {
+    id: 8,
+    title: "Induction of New Members",
+    date: "2026-04-25",
+    time: "6:00 PM – 9:00 PM",
+    location: "Marco Polo Hotel, Cebu City",
+    region: "Cebu",
+    club: "Metro Sugbo International Eagles Club",
+    contact: "Eagle-in-Charge · msg via Messenger",
+    desc: "Formal induction ceremony for new Metro Sugbo Eagles members. Candlelight induction ceremony followed by a dinner reception. Formal attire required. Family members are welcome to attend."
+  },
+  {
+    id: 9,
+    title: "Chapter Meeting – Manila",
+    date: "2026-05-03",
+    time: "5:00 PM – 8:00 PM",
+    location: "Quezon City, Metro Manila",
+    region: "Manila",
+    club: "IFOE Manila Chapter",
+    contact: "Eagle-in-Charge · msg via Messenger",
+    desc: "Monthly chapter meeting for Manila-based Eagles. Discussion on membership drive, upcoming national events, and coordination with national leadership."
+  },
+  {
+    id: 10,
+    title: "Tree Planting & Clean-Up Drive",
+    date: "2026-05-10",
+    time: "6:00 AM – 10:00 AM",
+    location: "Lahug Watershed, Cebu City",
+    region: "Cebu",
+    club: "Sentro Sugbo International Eagles Club",
+    contact: "Eagle-in-Charge · msg via Messenger",
+    desc: "Environmental outreach activity. Eagles will plant 500 seedlings and clean the surrounding area. Bring work gloves and wear comfortable clothes. Breakfast will be provided."
+  },
+  {
+    id: 11,
+    title: "Eagles Sports Fest",
+    date: "2026-05-16",
+    time: "7:00 AM – 5:00 PM",
+    location: "SRP Arena, Cebu City",
+    region: "Visayas",
+    club: "Central Visayas International Eagles Region",
+    contact: "Eagle Gilbert A. Sebandal · msg via Messenger",
+    desc: "Annual inter-club sports tournament. Basketball, volleyball, and badminton. Open to all IFOE members and their families. Registration required. Winners receive Eagles championship medals."
+  },
+  {
+    id: 12,
+    title: "International Board Meeting",
+    date: "2026-05-22",
+    time: "9:00 AM – 5:00 PM",
+    location: "Waterfront Cebu City Hotel",
+    region: "International",
+    club: "IFOE International Leadership",
+    contact: "Atty. Jun Salatandre · msg via Messenger",
+    desc: "Quarterly International Board of Directors meeting. Agenda includes review of club charters, financial reports, international expansion plans, and planning for the 3rd International Convention."
+  },
+  {
+    id: 13,
+    title: "Feeding Program – Manila",
+    date: "2026-06-07",
+    time: "8:00 AM – 12:00 PM",
+    location: "Payatas, Quezon City",
+    region: "Manila",
+    club: "IFOE Manila Chapter",
+    contact: "Eagle-in-Charge · msg via Messenger",
+    desc: "Community feeding mission in the Payatas area. Eagles will distribute hot meals and care packages to 200+ families. Volunteers and additional food donations are welcome."
+  },
+  {
+    id: 14,
+    title: "Livelihood Skills Training",
+    date: "2026-06-14",
+    time: "9:00 AM – 4:00 PM",
+    location: "Mandaue City, Cebu",
+    region: "Cebu",
+    club: "Metro Sugbo International Eagles Club",
+    contact: "Eagle-in-Charge · msg via Messenger",
+    desc: "Free livelihood training seminar for community members. Topics include basic food processing, handicraft making, and small business basics. Materials and meals provided to all participants."
+  },
+  {
+    id: 15,
+    title: "Mid-Year Eagles Gala",
+    date: "2026-06-27",
+    time: "7:00 PM – 11:00 PM",
+    location: "Radisson Blu Hotel, Cebu City",
+    region: "International",
+    club: "IFOE Philippine Eagles – All Clubs",
+    contact: "Atty. Jun Salatandre · msg via Messenger",
+    desc: "Grand mid-year gala dinner for all IFOE Eagles and their partners. Recognition of outstanding clubs, announcement of Q3 initiatives, and fellowship with national and international guests. Black tie event."
+  }
+];
+
+/* ═══════════════════════════════════
+   REGION COLOR MAP
+═══════════════════════════════════ */
+const regionColors = {
+  "Cebu":          { bg:"rgba(245,184,0,.15)",  text:"#F5B800", border:"rgba(245,184,0,.4)" },
+  "Visayas":       { bg:"rgba(129,199,132,.12)", text:"#81C784", border:"rgba(129,199,132,.35)" },
+  "Mindanao":      { bg:"rgba(79,195,247,.12)",  text:"#4FC3F7", border:"rgba(79,195,247,.35)" },
+  "Manila":        { bg:"rgba(229,115,115,.12)", text:"#E57373", border:"rgba(229,115,115,.35)" },
+  "International": { bg:"rgba(206,147,216,.12)", text:"#CE93D8", border:"rgba(206,147,216,.35)" },
+};
+
+/* ═══════════════════════════════════
+   STATE
+═══════════════════════════════════ */
+let currentYear  = new Date().getFullYear();
+let currentMonth = new Date().getMonth(); // 0-indexed
+let activeFilter = "all";
+
+/* ═══════════════════════════════════
+   RENDER CALENDAR
+═══════════════════════════════════ */
+function renderCalendar() {
+  const grid = document.getElementById('calGrid');
+  const label = document.getElementById('monthLabel');
+  const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+  const days   = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+
+  label.innerHTML = `${months[currentMonth]} <span>${currentYear}</span>`;
+
+  // Filter events
+  const filtered = EVENTS.filter(e => activeFilter === "all" || e.region === activeFilter);
+
+  // Build grid
+  let html = '';
+  // Day headers
+  days.forEach(d => { html += `<div class="cal-dow">${d}</div>`; });
+
+  const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+  const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+  const daysInPrev  = new Date(currentYear, currentMonth, 0).getDate();
+  const today = new Date();
+  const totalCells = Math.ceil((firstDay + daysInMonth) / 7) * 7;
+
+  for (let i = 0; i < totalCells; i++) {
+    let day, isOther = false, dateStr;
+    if (i < firstDay) {
+      day = daysInPrev - firstDay + i + 1;
+      isOther = true;
+      const prevMonth = currentMonth === 0 ? 11 : currentMonth - 1;
+      const prevYear  = currentMonth === 0 ? currentYear - 1 : currentYear;
+      dateStr = `${prevYear}-${String(prevMonth+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
+    } else if (i >= firstDay + daysInMonth) {
+      day = i - firstDay - daysInMonth + 1;
+      isOther = true;
+      const nextMonth = currentMonth === 11 ? 0 : currentMonth + 1;
+      const nextYear  = currentMonth === 11 ? currentYear + 1 : currentYear;
+      dateStr = `${nextYear}-${String(nextMonth+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
+    } else {
+      day = i - firstDay + 1;
+      dateStr = `${currentYear}-${String(currentMonth+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
+    }
+
+    const isToday = !isOther &&
+      day === today.getDate() &&
+      currentMonth === today.getMonth() &&
+      currentYear === today.getFullYear();
+
+    const dayEvents = filtered.filter(e => e.date === dateStr);
+
+    const dayNumHtml = isToday
+      ? `<span class="cal-day-num"><span class="cal-today-dot">${day}</span></span>`
+      : `<span class="cal-day-num">${day}</span>`;
+
+    const eventsHtml = dayEvents.map(e =>
+      `<div class="cal-event" data-region="${e.region}" data-id="${e.id}" onclick="openModal(${e.id})">
+        <div class="cal-event-dot" data-region="${e.region}"></div>
+        <div class="cal-event-title">${e.title}</div>
+      </div>`
+    ).join('');
+
+    html += `<div class="cal-cell${isOther?' other-month':''}${isToday?' today':''}">
+      ${dayNumHtml}
+      ${eventsHtml}
+    </div>`;
+  }
+
+  grid.innerHTML = html;
+}
+
+/* ═══════════════════════════════════
+   RENDER UPCOMING LIST
+═══════════════════════════════════ */
+function renderUpcoming() {
+  const list = document.getElementById('upcomingList');
+  const today = new Date(); today.setHours(0,0,0,0);
+  const filtered = EVENTS
+    .filter(e => {
+      const d = new Date(e.date); d.setHours(0,0,0,0);
+      return d >= today && (activeFilter === "all" || e.region === activeFilter);
+    })
+    .sort((a,b) => new Date(a.date) - new Date(b.date))
+    .slice(0, 8);
+
+  if (!filtered.length) {
+    list.innerHTML = `<div style="padding:32px;text-align:center;font-family:'Cinzel',serif;font-size:13px;color:rgba(255,255,255,.3);letter-spacing:2px">No upcoming events for this filter</div>`;
+    return;
+  }
+
+  list.innerHTML = filtered.map(e => {
+    const d = new Date(e.date + 'T00:00:00');
+    const dayNum = d.getDate();
+    const mon = d.toLocaleString('en',{month:'short'}).toUpperCase();
+    const rc = regionColors[e.region] || regionColors["International"];
+    return `<div class="upcoming-item" data-region="${e.region}" onclick="openModal(${e.id})">
+      <div class="ui-date">
+        <div class="ui-date-day">${dayNum}</div>
+        <div class="ui-date-mon">${mon}</div>
+      </div>
+      <div class="ui-info">
+        <div class="ui-title">${e.title}</div>
+        <div class="ui-meta">
+          <span>🕐 ${e.time}</span>
+          <span>📍 ${e.location}</span>
+        </div>
+      </div>
+      <div class="ui-region-pill" style="background:${rc.bg};color:${rc.text};border:1px solid ${rc.border}">${e.region}</div>
+    </div>`;
+  }).join('');
+}
+
+/* ═══════════════════════════════════
+   MODAL
+═══════════════════════════════════ */
+function openModal(id) {
+  const e = EVENTS.find(ev => ev.id === id);
+  if (!e) return;
+  const rc = regionColors[e.region] || regionColors["International"];
+  const d = new Date(e.date + 'T00:00:00');
+  const dateFormatted = d.toLocaleDateString('en-PH',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+
+  document.getElementById('modalBadge').textContent = e.region;
+  document.getElementById('modalBadge').style.cssText = `background:${rc.bg};color:${rc.text};border:1px solid ${rc.border};font-family:'Cinzel',serif;font-size:8px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;padding:4px 10px;border-radius:2px;display:inline-block;margin-bottom:10px`;
+  document.getElementById('modalTitle').textContent = e.title;
+  document.getElementById('modalDateTime').textContent = `${dateFormatted} · ${e.time}`;
+  document.getElementById('modalLocation').textContent = e.location;
+  document.getElementById('modalRegion').textContent = `${e.region} Region · ${e.club}`;
+  document.getElementById('modalContact').textContent = e.contact;
+  document.getElementById('modalDesc').textContent = e.desc;
+
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.getElementById('modalClose').addEventListener('click', closeModal);
+document.getElementById('modalCloseBtn').addEventListener('click', closeModal);
+document.getElementById('modalOverlay').addEventListener('click', e => {
+  if (e.target === document.getElementById('modalOverlay')) closeModal();
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+/* ═══════════════════════════════════
+   CONTROLS
+═══════════════════════════════════ */
+document.getElementById('prevBtn').addEventListener('click', () => {
+  currentMonth--; if (currentMonth < 0) { currentMonth = 11; currentYear--; }
+  renderCalendar();
+});
+document.getElementById('nextBtn').addEventListener('click', () => {
+  currentMonth++; if (currentMonth > 11) { currentMonth = 0; currentYear++; }
+  renderCalendar();
+});
+
+document.querySelectorAll('.rf-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.rf-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeFilter = btn.dataset.filter;
+    renderCalendar();
+    renderUpcoming();
+  });
+});
+
+/* ── NAV SCROLL ── */
+const nb = document.getElementById('navbar');
+window.addEventListener('scroll', () => nb.classList.toggle('scrolled', scrollY > 50));
+
+/* ── INIT ── */
+renderCalendar();
+renderUpcoming();
+</script>
+</body>
+</html>
