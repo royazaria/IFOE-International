@@ -277,7 +277,6 @@
     .reveal{opacity:0;transform:translateY(36px);transition:opacity .7s,transform .7s}
     .reveal.visible{opacity:1;transform:translateY(0)}
     .d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}
-
     /* ── HAMBURGER ── */
     .nav-burger{display:none;flex-direction:column;justify-content:space-between;width:26px;height:19px;cursor:pointer;background:none;border:none;padding:0;z-index:1100;flex-shrink:0}
     .nav-burger span{display:block;height:2px;background:var(--gold);border-radius:2px;transition:all .35s}
@@ -296,12 +295,11 @@
     .drawer-cta .dc-outline:hover{background:rgba(245,184,0,.1)}
     .drawer-cta .dc-solid{background:var(--gold);color:var(--black);border:none}
     .drawer-cta .dc-solid:hover{background:var(--gold-light)}
-
     @media(max-width:960px){
       nav{padding:0 22px}
       .nav-links,.nav-cta{display:none}
       .nav-burger{display:flex}
-      .container{padding:0 28px}
+      .container{padding:0 24px}
       .founder-grid,.mission-grid,.nl-grid,.dig-grid{grid-template-columns:1fr;gap:36px}
       .prog-grid{grid-template-columns:1fr 1fr}
       .prog-card.wide{grid-column:span 2}
@@ -325,10 +323,10 @@
       .gal-strip{grid-template-columns:1fr 1fr}
       .form-row{flex-direction:column}
       .row3,.row4{grid-template-columns:1fr 1fr}
-      .hero-badge{width:100px;height:100px}
+      .hero-badge{width:110px;height:110px}
       .hero-btns{flex-direction:column;align-items:center}
-      .pba-cards{grid-template-columns:1fr}
       .pba-stats{flex-wrap:wrap}
+      .pba-labels{flex-direction:column;gap:8px}
       section{padding:52px 0}
     }
   </style>
@@ -352,8 +350,8 @@
     <li><a href="calendar.html">Calendar</a></li>
   </ul>
   <div class="nav-cta">
-   <a href="https://www.facebook.com/messages/t/61577709546547" target="_blank" rel="noopener" class="btn-nav btn-outline">Become a Sponsor</a>
-   <a href="https://www.facebook.com/messages/t/61577709546547" target="_blank" rel="noopener" class="btn-nav btn-solid">Join Us</a>
+   <a href="https://m.me/61577709546547?text=Hey!%20I%20want%20to%20become%20a%20sponsor%2C%20Can%20I%20hear%20more%3F" target="_blank" rel="noopener" class="btn-nav btn-outline">Become a Sponsor</a>
+   <a href="https://m.me/61577709546547?text=Hey!%20I%20want%20to%20join%2C%20Can%20I%20hear%20more%3F" target="_blank" rel="noopener" class="btn-nav btn-solid">Join Us</a>
   </div>
   <button class="nav-burger" id="navBurger" aria-label="Toggle menu"><span></span><span></span><span></span></button>
 </nav>
@@ -365,8 +363,8 @@
   <a href="gallery.html">Gallery</a>
   <a href="calendar.html">Calendar</a>
   <div class="drawer-cta">
-    <a href="https://www.facebook.com/messages/t/61577709546547" target="_blank" rel="noopener" class="dc-outline">Become a Sponsor</a>
-    <a href="https://www.facebook.com/messages/t/61577709546547" target="_blank" rel="noopener" class="dc-solid">Join Us</a>
+    <a href="https://m.me/61577709546547?text=Hey!%20I%20want%20to%20become%20a%20sponsor%2C%20Can%20I%20hear%20more%3F" target="_blank" rel="noopener" class="dc-outline">Become a Sponsor</a>
+    <a href="https://m.me/61577709546547?text=Hey!%20I%20want%20to%20join%2C%20Can%20I%20hear%20more%3F" target="_blank" rel="noopener" class="dc-solid">Join Us</a>
   </div>
 </div>
 
@@ -798,6 +796,12 @@
 <script>
   const nb=document.getElementById('navbar');
   window.addEventListener('scroll',()=>nb.classList.toggle('scrolled',scrollY>50));
+  const _burger=document.getElementById('navBurger');
+  const _drawer=document.getElementById('navDrawer');
+  if(_burger&&_drawer){
+    _burger.addEventListener('click',()=>{_burger.classList.toggle('open');_drawer.classList.toggle('open');});
+    _drawer.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{_burger.classList.remove('open');_drawer.classList.remove('open');}));
+  }
   const sl=document.querySelectorAll('.hero-slide');
   let ci=0;
   setInterval(()=>{sl[ci].classList.remove('active');ci=(ci+1)%sl.length;sl[ci].classList.add('active');},5500);
@@ -814,21 +818,6 @@
     const nt=document.getElementById('nf-nt').value||'';
     const m=encodeURIComponent('Hello IFOE Philippine Eagles! 👋\n\nName: '+fn+' '+ln+'\nEmail: '+em+'\nCity/Country: '+ci+'\nInterest: '+it+'\nMessage: '+(nt||'N/A')+'\n\nI would like to subscribe to your newsletter. Thank you!');
     window.open('https://www.facebook.com/messages/t/61577709546547?text='+m,'_blank');
-  }
-
-  // ── HAMBURGER ──
-  const _burger = document.getElementById('navBurger');
-  const _drawer = document.getElementById('navDrawer');
-  if (_burger && _drawer) {
-    _burger.addEventListener('click', () => {
-      _burger.classList.toggle('open');
-      _drawer.classList.toggle('open');
-    });
-    // close on link click
-    _drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-      _burger.classList.remove('open');
-      _drawer.classList.remove('open');
-    }));
   }
 </script>
 </body>
