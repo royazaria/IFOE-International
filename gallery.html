@@ -126,14 +126,45 @@
     .fab svg{width:26px;height:26px;fill:var(--black)}
 
     /* MOBILE NAV */
-    @media(max-width:768px){
-      nav{padding:0 20px}
       .nav-links,.nav-cta{display:none}
     }
 
     /* ANIMATIONS */
     @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
     .page-hero-inner{animation:fadeUp .8s ease both}
+
+    /* ── HAMBURGER ── */
+    .nav-burger{display:none;flex-direction:column;justify-content:space-between;width:26px;height:19px;cursor:pointer;background:none;border:none;padding:0;z-index:1100;flex-shrink:0}
+    .nav-burger span{display:block;height:2px;background:var(--gold);border-radius:2px;transition:all .35s}
+    .nav-burger.open span:nth-child(1){transform:translateY(8.5px) rotate(45deg)}
+    .nav-burger.open span:nth-child(2){opacity:0;transform:scaleX(0)}
+    .nav-burger.open span:nth-child(3){transform:translateY(-8.5px) rotate(-45deg)}
+    /* ── MOBILE DRAWER ── */
+    .nav-drawer{display:none;position:fixed;top:var(--nav-h);left:0;right:0;background:rgba(8,8,8,.99);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:2px solid rgba(245,184,0,.22);padding:20px 24px 28px;z-index:998;flex-direction:column;gap:0}
+    .nav-drawer.open{display:flex}
+    .nav-drawer a{font-family:'Cinzel',serif;font-size:11px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,.6);text-decoration:none;padding:13px 0;border-bottom:1px solid rgba(255,255,255,.06);transition:color .2s;display:block}
+    .nav-drawer a:last-child{border-bottom:none}
+    .nav-drawer a.active,.nav-drawer a:hover{color:var(--gold)}
+    .drawer-cta{display:flex;flex-direction:column;gap:10px;margin-top:18px}
+    .drawer-cta a{padding:12px 16px;text-align:center;font-family:'Cinzel',serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;text-decoration:none;border-radius:2px;transition:all .3s;display:block;border-bottom:none !important}
+    .drawer-cta .dc-outline{border:1px solid var(--gold);color:var(--gold);background:transparent}
+    .drawer-cta .dc-outline:hover{background:rgba(245,184,0,.1)}
+    .drawer-cta .dc-solid{background:var(--gold);color:var(--black);border:none}
+    .drawer-cta .dc-solid:hover{background:var(--gold-light)}
+
+    @media(max-width:960px){
+      nav{padding:0 22px}
+      .nav-links,.nav-cta{display:none}
+      .nav-burger{display:flex}
+      .gallery-section{padding:0 16px 60px}
+      .tabs-wrap{padding:0 12px 36px;gap:6px}
+      .tab-btn{padding:9px 14px;font-size:8px}
+    }
+    @media(max-width:600px){
+      nav{padding:0 16px}
+      .tabs-wrap{gap:5px}
+      .tab-btn{padding:8px 10px;font-size:8px}
+    }
   </style>
 </head>
 <body>
@@ -153,12 +184,25 @@
     <li><a href="our-clubs.html">Our Clubs</a></li>
     <li><a href="sponsors.html">Sponsors</a></li>
     <li><a href="gallery.html" class="active">Gallery</a></li>
-    <li><a href="calendar.html">Our Social Activites Calendar</a></li>
+    <li><a href="calendar.html">Calendar</a></li>
   </ul>
   <div class="nav-cta">
     <a href="https://www.facebook.com/messages/t/61577709546547" target="_blank" rel="noopener" class="btn-nav btn-solid">Join Us</a>
   </div>
+  <button class="nav-burger" id="navBurger" aria-label="Toggle menu"><span></span><span></span><span></span></button>
 </nav>
+<div class="nav-drawer" id="navDrawer">
+  <a href="index.html">Home</a>
+  <a href="about.html">About Us</a>
+  <a href="our-clubs.html">Our Clubs</a>
+  <a href="sponsors.html">Sponsors</a>
+  <a href="gallery.html" class="active">Gallery</a>
+  <a href="calendar.html">Calendar</a>
+  <div class="drawer-cta">
+    <a href="https://www.facebook.com/messages/t/61577709546547" target="_blank" rel="noopener" class="dc-outline">Become a Sponsor</a>
+    <a href="https://www.facebook.com/messages/t/61577709546547" target="_blank" rel="noopener" class="dc-solid">Join Us</a>
+  </div>
+</div>
 
 <!-- ── PAGE HERO ── -->
 <div class="page-hero">
@@ -539,6 +583,21 @@
     if(e.key==='ArrowLeft')lbNav(-1);
     if(e.key==='ArrowRight')lbNav(1);
   });
+
+  // ── HAMBURGER ──
+  const _burger = document.getElementById('navBurger');
+  const _drawer = document.getElementById('navDrawer');
+  if (_burger && _drawer) {
+    _burger.addEventListener('click', () => {
+      _burger.classList.toggle('open');
+      _drawer.classList.toggle('open');
+    });
+    // close on link click
+    _drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      _burger.classList.remove('open');
+      _drawer.classList.remove('open');
+    }));
+  }
 </script>
 </body>
 </html>
