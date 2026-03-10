@@ -126,6 +126,8 @@
     .fab svg{width:26px;height:26px;fill:var(--black)}
 
     /* MOBILE NAV */
+    @media(max-width:768px){
+      nav{padding:0 20px}
       .nav-links,.nav-cta{display:none}
     }
 
@@ -151,7 +153,6 @@
     .drawer-cta .dc-outline:hover{background:rgba(245,184,0,.1)}
     .drawer-cta .dc-solid{background:var(--gold);color:var(--black);border:none}
     .drawer-cta .dc-solid:hover{background:var(--gold-light)}
-
     @media(max-width:960px){
       nav{padding:0 22px}
       .nav-links,.nav-cta{display:none}
@@ -191,18 +192,6 @@
   </div>
   <button class="nav-burger" id="navBurger" aria-label="Toggle menu"><span></span><span></span><span></span></button>
 </nav>
-<div class="nav-drawer" id="navDrawer">
-  <a href="index.html">Home</a>
-  <a href="about.html">About Us</a>
-  <a href="our-clubs.html">Our Clubs</a>
-  <a href="sponsors.html">Sponsors</a>
-  <a href="gallery.html" class="active">Gallery</a>
-  <a href="calendar.html">Calendar</a>
-  <div class="drawer-cta">
-    <a href="https://www.facebook.com/messages/t/61577709546547" target="_blank" rel="noopener" class="dc-outline">Become a Sponsor</a>
-    <a href="https://www.facebook.com/messages/t/61577709546547" target="_blank" rel="noopener" class="dc-solid">Join Us</a>
-  </div>
-</div>
 
 <!-- ── PAGE HERO ── -->
 <div class="page-hero">
@@ -584,19 +573,11 @@
     if(e.key==='ArrowRight')lbNav(1);
   });
 
-  // ── HAMBURGER ──
-  const _burger = document.getElementById('navBurger');
-  const _drawer = document.getElementById('navDrawer');
-  if (_burger && _drawer) {
-    _burger.addEventListener('click', () => {
-      _burger.classList.toggle('open');
-      _drawer.classList.toggle('open');
-    });
-    // close on link click
-    _drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-      _burger.classList.remove('open');
-      _drawer.classList.remove('open');
-    }));
+  const _burger=document.getElementById('navBurger');
+  const _drawer=document.getElementById('navDrawer');
+  if(_burger&&_drawer){
+    _burger.addEventListener('click',()=>{_burger.classList.toggle('open');_drawer.classList.toggle('open');});
+    _drawer.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{_burger.classList.remove('open');_drawer.classList.remove('open');}));
   }
 </script>
 </body>
