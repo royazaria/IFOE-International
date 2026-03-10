@@ -326,9 +326,8 @@
       .hero-badge{width:110px;height:110px}
       .hero-btns{flex-direction:column;align-items:center}
       .pba-stats{flex-wrap:wrap}
-      .pba-labels{flex-direction:column;gap:8px}
       section{padding:52px 0}
-    }
+    }.prog-card.wide{grid-column:span 1}.footer-grid{grid-template-columns:1fr}.gal-strip{grid-template-columns:1fr 1fr}.form-row{flex-direction:column}.nav-cta .btn-outline{display:none}.row3{grid-template-columns:1fr 1fr}.hero-badge{width:110px;height:110px}}
   </style>
 </head>
 <body>
@@ -337,8 +336,8 @@
   <a href="index.html" class="nav-logo">
     <img src="logo IFOE.jpg" alt="IFOE Philippine Eagles" />
     <div class="nav-logo-text">
-      <span class="top">International Fraternal</span>
-      <span class="bot">Order of Eagles</span>
+      <span class="top">International Fraternal Order of Eagles</span>
+      <span class="bot">Philippine Eagles</span>
     </div>
   </a>
   <ul class="nav-links">
@@ -796,12 +795,6 @@
 <script>
   const nb=document.getElementById('navbar');
   window.addEventListener('scroll',()=>nb.classList.toggle('scrolled',scrollY>50));
-  const _burger=document.getElementById('navBurger');
-  const _drawer=document.getElementById('navDrawer');
-  if(_burger&&_drawer){
-    _burger.addEventListener('click',()=>{_burger.classList.toggle('open');_drawer.classList.toggle('open');});
-    _drawer.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{_burger.classList.remove('open');_drawer.classList.remove('open');}));
-  }
   const sl=document.querySelectorAll('.hero-slide');
   let ci=0;
   setInterval(()=>{sl[ci].classList.remove('active');ci=(ci+1)%sl.length;sl[ci].classList.add('active');},5500);
@@ -818,6 +811,12 @@
     const nt=document.getElementById('nf-nt').value||'';
     const m=encodeURIComponent('Hello IFOE Philippine Eagles! 👋\n\nName: '+fn+' '+ln+'\nEmail: '+em+'\nCity/Country: '+ci+'\nInterest: '+it+'\nMessage: '+(nt||'N/A')+'\n\nI would like to subscribe to your newsletter. Thank you!');
     window.open('https://www.facebook.com/messages/t/61577709546547?text='+m,'_blank');
+  }
+  const _burger=document.getElementById('navBurger');
+  const _drawer=document.getElementById('navDrawer');
+  if(_burger&&_drawer){
+    _burger.addEventListener('click',()=>{_burger.classList.toggle('open');_drawer.classList.toggle('open');});
+    _drawer.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{_burger.classList.remove('open');_drawer.classList.remove('open');}));
   }
 </script>
 </body>
