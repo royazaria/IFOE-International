@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Our Sponsors – IFOE Philippine Eagles</title>
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="shortcut icon" href="favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600;700&family=Lato:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet" />
+  <style>
+    :root{--gold:#F5B800;--gold-light:#FFD84D;--gold-dark:#C48A00;--black:#0A0A0A;--dark:#161616;--dark-mid:#1E1E1E;--navy:#0D2B55;--navy-deep:#091F40;--white:#FFFFFF;--nav-h:80px}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:'Lato',sans-serif;background:var(--black);color:var(--white);overflow-x:hidden}
+    ::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--black)}::-webkit-scrollbar-thumb{background:var(--gold-dark);border-radius:3px}
+
+    /* ── NAV ── */
+    nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:0 40px;background:rgba(10,10,10,.96);backdrop-filter:blur(16px);border-bottom:1px solid rgba(245,184,0,.15);transition:all .4s}
+    nav.scrolled{border-bottom-color:rgba(245,184,0,.38);box-shadow:0 4px 32px rgba(0,0,0,.5)}
+    .nav-logo{display:flex;align-items:center;gap:12px;text-decoration:none}
+    .nav-logo img{width:48px;height:48px;object-fit:contain;filter:drop-shadow(0 0 8px rgba(245,184,0,.5));transition:transform .3s}
+    .nav-logo:hover img{transform:scale(1.08) rotate(-4deg)}
+    .nav-logo-text{display:flex;flex-direction:column;line-height:1.15}
+    .nav-logo-text .top{font-family:'Cinzel',serif;font-size:8.5px;letter-spacing:2.5px;color:var(--gold);text-transform:uppercase}
+    .nav-logo-text .bot{font-family:'Cinzel',serif;font-size:13px;font-weight:700;color:var(--white);letter-spacing:.8px}
+    .nav-links{display:flex;align-items:center;list-style:none}
+    .nav-links a{font-family:'Cinzel',serif;font-size:9.5px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.6);text-decoration:none;padding:8px 13px;transition:color .25s;position:relative}
+    .nav-links a::after{content:'';position:absolute;bottom:3px;left:13px;right:13px;height:1px;background:var(--gold);transform:scaleX(0);transition:transform .3s}
+    .nav-links a:hover,.nav-links a.active{color:var(--gold)}
+    .nav-links a:hover::after,.nav-links a.active::after{transform:scaleX(1)}
+    .nav-cta{display:flex;gap:8px}
+    .btn-nav{font-family:'Cinzel',serif;font-size:9px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;padding:8px 16px;border-radius:2px;text-decoration:none;transition:all .3s;cursor:pointer;border:none;white-space:nowrap;display:inline-flex;align-items:center;gap:6px}
+    .btn-outline{color:var(--gold);border:1px solid var(--gold);background:transparent}
+    .btn-outline:hover{background:rgba(245,184,0,.1)}
+    .btn-solid{color:var(--black);background:var(--gold)}
+    .btn-solid:hover{background:var(--gold-light);box-shadow:0 4px 18px rgba(245,184,0,.45)}
+    @media(max-width:768px){nav{padding:0 20px}.nav-links,.nav-cta{display:none}}
+
+    /* ── SHARED ── */
+    .container{max-width:1200px;margin:0 auto;padding:0 48px}
+    @media(max-width:600px){.container{padding:0 20px}}
+    .btn-primary{font-family:'Cinzel',serif;font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;padding:15px 34px;background:linear-gradient(135deg,var(--gold),var(--gold-dark));color:var(--black);border:none;border-radius:2px;text-decoration:none;cursor:pointer;transition:all .3s;box-shadow:0 4px 24px rgba(245,184,0,.35);display:inline-flex;align-items:center;gap:8px}
+    .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(245,184,0,.55)}
+    @keyframes fadeDown{from{opacity:0;transform:translateY(-28px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+    /* ── HERO BANNER ── */
+    .sponsors-hero{position:relative;padding:160px 0 80px;text-align:center;overflow:hidden}
+    .sponsors-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 50%,rgba(245,184,0,.07) 0%,transparent 70%),radial-gradient(ellipse 40% 40% at 20% 80%,rgba(13,43,85,.4) 0%,transparent 60%);pointer-events:none}
+    .sponsors-hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+    .hero-deco{position:absolute;top:80px;left:50%;transform:translateX(-50%);width:600px;height:2px;background:linear-gradient(90deg,transparent,rgba(245,184,0,.3),transparent)}
+    .sponsors-hero .eyebrow{font-family:'Cinzel',serif;font-size:10px;font-weight:700;letter-spacing:5px;color:var(--gold);text-transform:uppercase;margin-bottom:16px;animation:fadeDown .8s .2s both}
+    .sponsors-hero h1{font-family:'Cinzel Decorative',cursive;font-size:clamp(28px,5vw,58px);font-weight:900;color:var(--white);line-height:1.08;margin-bottom:14px;animation:fadeDown .9s .3s both}
+    .sponsors-hero h1 span{color:var(--gold)}
+    .sponsors-hero .divider{display:flex;align-items:center;gap:18px;justify-content:center;margin:22px auto 28px}
+    .sponsors-hero .divider::before,.sponsors-hero .divider::after{content:'';flex:1;max-width:120px;height:1px;background:linear-gradient(90deg,transparent,var(--gold))}
+    .sponsors-hero .divider::after{background:linear-gradient(90deg,var(--gold),transparent)}
+    .sponsors-hero .divider .diamond{width:6px;height:6px;background:var(--gold);transform:rotate(45deg)}
+    .sponsors-hero .tagline{font-size:15px;line-height:1.85;color:rgba(255,255,255,.5);max-width:600px;margin:0 auto;animation:fadeIn 1s .6s both}
+    .sponsors-hero .tagline em{color:var(--gold-light);font-style:normal;font-weight:700}
+
+    /* ── GRATITUDE BANNER ── */
+    .gratitude-banner{background:linear-gradient(135deg,rgba(245,184,0,.08) 0%,rgba(13,43,85,.15) 100%);border-top:1px solid rgba(245,184,0,.18);border-bottom:1px solid rgba(245,184,0,.18);padding:40px 0;text-align:center;position:relative;overflow:hidden}
+    .gratitude-banner::before{content:'"';position:absolute;left:5%;top:-30px;font-family:'Cinzel Decorative',cursive;font-size:200px;color:rgba(245,184,0,.04);line-height:1;pointer-events:none}
+    .gratitude-banner::after{content:'"';position:absolute;right:5%;bottom:-60px;font-family:'Cinzel Decorative',cursive;font-size:200px;color:rgba(245,184,0,.04);line-height:1;pointer-events:none}
+    .gratitude-banner .gb-label{font-family:'Cinzel',serif;font-size:9px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+    .gratitude-banner .gb-quote{font-family:'Cinzel',serif;font-size:clamp(16px,2.2vw,22px);color:var(--white);font-style:italic;line-height:1.6;max-width:800px;margin:0 auto 14px}
+    .gratitude-banner .gb-sub{font-size:13.5px;color:rgba(255,255,255,.42);letter-spacing:1px}
+
+    /* ── SPONSORS SECTION ── */
+    #sponsors{padding:80px 0 100px;position:relative}
+    #sponsors::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:1px;height:60px;background:linear-gradient(180deg,var(--gold),transparent)}
+
+    .sponsors-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:64px}
+    @media(max-width:900px){.sponsors-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:560px){.sponsors-grid{grid-template-columns:1fr}}
+
+    .sponsor-card{display:flex;flex-direction:column;align-items:center;text-align:center;padding:40px 32px 36px;background:var(--dark);border:1px solid rgba(245,184,0,.08);text-decoration:none;color:inherit;transition:all .35s;position:relative;overflow:hidden;gap:0}
+    .sponsor-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(245,184,0,.04) 0%,transparent 60%);opacity:0;transition:opacity .35s}
+    .sponsor-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);transform:scaleX(0);transition:transform .45s}
+    .sponsor-card:hover{background:rgba(22,22,22,1);border-color:rgba(245,184,0,.28);transform:translateY(-4px);box-shadow:0 16px 48px rgba(0,0,0,.5),0 0 0 1px rgba(245,184,0,.12)}
+    .sponsor-card:hover::before{opacity:1}
+    .sponsor-card:hover::after{transform:scaleX(1)}
+
+    .logo-wrap{width:120px;height:90px;display:flex;align-items:center;justify-content:center;margin-bottom:22px;position:relative}
+    .logo-wrap img{max-width:100%;max-height:100%;object-fit:contain;transition:transform .35s,filter .35s}
+    .sponsor-card:hover .logo-wrap img{transform:scale(1.07);filter:brightness(1.1)}
+
+    .sponsor-badge{font-family:'Cinzel',serif;font-size:8px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold-dark);background:rgba(245,184,0,.08);border:1px solid rgba(245,184,0,.2);padding:4px 12px;border-radius:1px;margin-bottom:14px;display:inline-block}
+    .sponsor-name{font-family:'Cinzel',serif;font-size:14px;font-weight:700;color:var(--white);margin-bottom:12px;line-height:1.3}
+    .sponsor-desc{font-size:13.5px;line-height:1.8;color:rgba(255,255,255,.45);margin-bottom:24px;flex:1}
+    .sponsor-cta{font-family:'Cinzel',serif;font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);border:1px solid rgba(245,184,0,.35);padding:9px 20px;border-radius:1px;transition:all .3s;display:inline-block;margin-top:auto}
+    .sponsor-card:hover .sponsor-cta{background:rgba(245,184,0,.1);border-color:var(--gold);letter-spacing:3px}
+
+    /* ── BECOME SPONSOR ── */
+    .become-sponsor{margin-top:80px;padding:60px 48px;background:linear-gradient(135deg,rgba(13,43,85,.5) 0%,rgba(10,10,10,1) 100%);border:1px solid rgba(245,184,0,.2);position:relative;overflow:hidden;text-align:center}
+    .become-sponsor::before{content:'';position:absolute;top:-1px;left:10%;right:10%;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+    .become-sponsor::after{content:'';position:absolute;top:0;right:-80px;width:300px;height:300px;background:radial-gradient(circle,rgba(245,184,0,.04) 0%,transparent 70%);pointer-events:none}
+    .become-sponsor .bs-label{font-family:'Cinzel',serif;font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+    .become-sponsor h3{font-family:'Cinzel Decorative',cursive;font-size:clamp(20px,3vw,34px);color:var(--white);margin-bottom:12px;line-height:1.2}
+    .become-sponsor h3 span{color:var(--gold)}
+    .become-sponsor p{font-size:14.5px;line-height:1.85;color:rgba(255,255,255,.5);max-width:560px;margin:0 auto 32px}
+    .bs-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+    .btn-ghost{font-family:'Cinzel',serif;font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;padding:15px 34px;background:transparent;color:var(--white);border:1px solid rgba(255,255,255,.25);border-radius:2px;text-decoration:none;cursor:pointer;transition:all .3s}
+    .btn-ghost:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-2px)}
+
+    /* ── REVEAL ANIMATION ── */
+    .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
+    .reveal.visible{opacity:1;transform:translateY(0)}
+
+    /* ── FOOTER ── */
+    footer{background:var(--dark);border-top:1px solid rgba(245,184,0,.12);padding:48px 0 28px;text-align:center}
+    .footer-logo{font-family:'Cinzel Decorative',cursive;font-size:18px;color:var(--gold);margin-bottom:8px}
+    .footer-sub{font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;color:rgba(255,255,255,.3);text-transform:uppercase;margin-bottom:28px}
+    .footer-links{display:flex;gap:24px;justify-content:center;flex-wrap:wrap;margin-bottom:28px}
+    .footer-links a{font-family:'Cinzel',serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.4);text-decoration:none;transition:color .3s}
+    .footer-links a:hover{color:var(--gold)}
+    .footer-line{width:60px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:0 auto 16px}
+    .footer-copy{font-size:11px;color:rgba(255,255,255,.2);letter-spacing:1px}
+  </style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav id="navbar">
+  <a href="index.html" class="nav-logo">
+    <img src="logo IFOE.jpg" alt="IFOE Philippine Eagles" />
+    <div class="nav-logo-text">
+      <span class="top">International Fraternal</span>
+      <span class="bot">Order of Eagles</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About Us</a></li>
+    <li><a href="our-clubs.html">Our Clubs</a></li>
+    <li><a href="sponsors.html" class="active">Sponsors</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="calendar.html">Calendar</a></li>
+  </ul>
+  <div class="nav-cta">
+    <a href="https://m.me/61577709546547?text=Hey!%20I%20want%20to%20become%20a%20sponsor%2C%20Can%20I%20hear%20more%3F" target="_blank" rel="noopener" class="btn-nav btn-outline">Become a Sponsor</a>
+    <a href="https://m.me/61577709546547?text=Hey!%20I%20want%20to%20join%2C%20Can%20I%20hear%20more%3F" target="_blank" rel="noopener" class="btn-nav btn-solid">Join Us</a>
+  </div>
+</nav>
+
+<!-- ── HERO BANNER ── -->
+<div class="sponsors-hero">
+  <div class="hero-deco"></div>
+  <div class="container">
+    <p class="eyebrow">Our Partners in Purpose</p>
+    <h1>Proud <span>Sponsors</span></h1>
+    <div class="divider"><div class="diamond"></div></div>
+    <p class="tagline">These are the brands that believed in us — before the crowd did.<br>They invest in our mission of <em>brotherhood, service, and Cebuano pride.</em><br>We ask you to invest in them in return.</p>
+  </div>
+</div>
+
+<!-- ── GRATITUDE BANNER ── -->
+<div class="gratitude-banner">
+  <div class="container">
+    <p class="gb-label">A Message of Gratitude</p>
+    <p class="gb-quote">"To every brand that has stood behind the Eagles — your belief in our cause has made every medical mission, every scholarship, every community effort possible. You are not just sponsors. You are Eagles."</p>
+    <p class="gb-sub">— The Metro Sugbu Eagles Leadership</p>
+  </div>
+</div>
+
+<!-- ── SPONSORS GRID ── -->
+<section id="sponsors">
+  <div class="container">
+    <div class="sponsors-grid">
+
+      <!-- 1. Roble Shipping -->
+      <a class="sponsor-card reveal" href="https://www.robleshipping.com" target="_blank" rel="noopener">
+        <div class="logo-wrap"><img src="roble.png" alt="Roble Shipping Inc."></div>
+        <span class="sponsor-badge">Shipping &amp; Maritime</span>
+        <span class="sponsor-name">Roble Shipping Inc.</span>
+        <p class="sponsor-desc">Founded in 1985 by a proud Cebuano entrepreneur, Roble Shipping connects the Visayas, Mindanao, and beyond with a fleet of 21 vessels. Four decades of moving people and cargo across Philippine seas — built on reliability and hometown pride.</p>
+        <span class="sponsor-cta">Visit Website ↗</span>
+      </a>
+
+      <!-- 2. Lucira -->
+      <a class="sponsor-card reveal" href="https://lucira.ph/" target="_blank" rel="noopener">
+        <div class="logo-wrap"><img src="lucira.png" alt="Lucira Renewable Ventures"></div>
+        <span class="sponsor-badge">Solar Energy</span>
+        <span class="sponsor-name">Lucira Renewable Ventures</span>
+        <p class="sponsor-desc">Switch to solar with zero upfront cost. Lucira's Power Purchase Agreement model helps Filipino homes and businesses slash electricity bills by up to 50% — making clean, renewable energy genuinely accessible for everyone across the Philippines.</p>
+        <span class="sponsor-cta">Go Solar Today ↗</span>
+      </a>
+
+      <!-- 3. AppleOne -->
+      <a class="sponsor-card reveal" href="https://www.appleone.com.ph/" target="_blank" rel="noopener">
+        <div class="logo-wrap"><img src="apple one.png" alt="AppleOne Properties"></div>
+        <span class="sponsor-badge">Real Estate</span>
+        <span class="sponsor-name">AppleOne Properties</span>
+        <p class="sponsor-desc">One of Cebu's most trusted real estate developers, building residential and commercial spaces that Cebuanos are genuinely proud to call home. Quality construction, thoughtful design, and a long-term vision for the communities they build within.</p>
+        <span class="sponsor-cta">Explore Properties ↗</span>
+      </a>
+
+      <!-- 4. Lilah Beauty -->
+      <a class="sponsor-card reveal" href="https://www.facebook.com/p/Lilah-Beauty-Salon-Spa-61576344771732/" target="_blank" rel="noopener">
+        <div class="logo-wrap"><img src="lilah beauty salo  &amp; spa.jpg" alt="Lilah Beauty Salon &amp; Spa"></div>
+        <span class="sponsor-badge">Beauty &amp; Wellness</span>
+        <span class="sponsor-name">Lilah Beauty Salon &amp; Spa</span>
+        <p class="sponsor-desc">Your Cebu sanctuary for beauty and self-care. Lilah offers professional hair, nail, and spa treatments delivered with a warm Filipino touch — because looking and feeling your best is something you deserve every single day, not just on special occasions.</p>
+        <span class="sponsor-cta">Follow on Facebook ↗</span>
+      </a>
+
+      <!-- 5. Vionz -->
+      <a class="sponsor-card reveal" href="https://www.facebook.com/vionzph/" target="_blank" rel="noopener">
+        <div class="logo-wrap"><img src="Vionz.jpg" alt="Vionz"></div>
+        <span class="sponsor-badge">Cebu Local Brand</span>
+        <span class="sponsor-name">Vionz</span>
+        <p class="sponsor-desc">A homegrown Cebu brand building a loyal community one customer at a time. Vionz stands for local ingenuity and Cebuano hustle. Follow their journey and discover their latest offerings — and be part of a brand with genuine roots in the Queen City of the South.</p>
+        <span class="sponsor-cta">Follow on Facebook ↗</span>
+      </a>
+
+      <!-- 6. Tanduay -->
+      <a class="sponsor-card reveal" href="https://www.tanduay.com/" target="_blank" rel="noopener">
+        <div class="logo-wrap"><img src="Tanduay_logo.webp" alt="Tanduay Rhum"></div>
+        <span class="sponsor-badge">Beverages</span>
+        <span class="sponsor-name">Tanduay — The No. 1 Rhum</span>
+        <p class="sponsor-desc">The world's best-selling rum — a title earned through generations of Filipino craftsmanship. Distilled from Philippine sugarcane since 1854, Tanduay is the spirit of celebration, camaraderie, and unapologetic Filipino pride poured into every glass.</p>
+        <span class="sponsor-cta">Visit Website ↗</span>
+      </a>
+
+      <!-- 7. La Reina -->
+      <a class="sponsor-card reveal" href="https://www.facebook.com/groups/2044061439240660/" target="_blank" rel="noopener">
+        <div class="logo-wrap"><img src="lareina.png" alt="La Reina Security Agency"></div>
+        <span class="sponsor-badge">Security Services</span>
+        <span class="sponsor-name">La Reina Security Agency</span>
+        <p class="sponsor-desc">Professional security solutions across Cebu — protecting businesses, events, and communities with trained, dedicated personnel. La Reina treats safety as the non-negotiable it truly is, giving you peace of mind that lets you focus on what matters.</p>
+        <span class="sponsor-cta">Follow on Facebook ↗</span>
+      </a>
+
+      <!-- 8. Smart Sync -->
+      <a class="sponsor-card reveal" href="http://smartsyncservices.com/" target="_blank" rel="noopener">
+        <div class="logo-wrap"><img src="smartsync.jpg" alt="Smart Sync Services"></div>
+        <span class="sponsor-badge">IT &amp; Business Solutions</span>
+        <span class="sponsor-name">Smart Sync Services</span>
+        <p class="sponsor-desc">Smart Sync helps Cebu organizations run smarter through technology and business process solutions. From IT support to full operations management, they're the dependable partner quietly keeping businesses running at their absolute best every single day.</p>
+        <span class="sponsor-cta">Visit Website ↗</span>
+      </a>
+
+      <!-- 9. InLife -->
+      <a class="sponsor-card reveal" href="https://www.inlife.com.ph/" target="_blank" rel="noopener">
+        <div class="logo-wrap"><img src="inlife.jpg" alt="InLife – Insular Life"></div>
+        <span class="sponsor-badge">Life Insurance</span>
+        <span class="sponsor-name">InLife – Insular Life</span>
+        <p class="sponsor-desc">The Philippines' first and largest Filipino life insurance company — trusted since 1910. As the country's only mutual insurer owned by its own policyholders, InLife exists for one reason: protecting Filipino families and helping them build a truly secure future.</p>
+        <span class="sponsor-cta">Visit Website ↗</span>
+      </a>
+
+      <!-- 10. Gaia Studios -->
+      <a class="sponsor-card reveal" href="https://gaiastudio.ph" target="_blank" rel="noopener">
+        <div class="logo-wrap"><img src="GAIA_STUDIOS.png" alt="Gaia Studios"></div>
+        <span class="sponsor-badge">Furniture &amp; Craftsmanship</span>
+        <span class="sponsor-name">Gaia Studios</span>
+        <p class="sponsor-desc">100% solid mahogany furniture, handcrafted in the Philippines. Gaia Studios creates heirloom-quality pieces built to last a lifetime — timeless in design, uncompromising in wood quality, and proudly made by Filipino craftsmen who let the grain tell the story.</p>
+        <span class="sponsor-cta">Discover Gaia Studios ↗</span>
+      </a>
+
+      <!-- 11. PainFree Global / Patient Bed -->
+      <a class="sponsor-card reveal" href="https://painfree-global.com/" target="_blank" rel="noopener">
+        <div class="logo-wrap"><img src="patient-bed.JPG" alt="PainFree Global – PEMF Therapy" style="border-radius:6px;object-fit:cover;width:100%;height:90px;max-width:none"></div>
+        <span class="sponsor-badge">Pain Therapy Technology</span>
+        <span class="sponsor-name">PainFree Global — PEMF Therapy</span>
+        <p class="sponsor-desc">The most advanced non-invasive solution for chronic pain available today. PainFree Global's PEMF (Pulsed Electromagnetic Field) therapy machines work at the cellular level — reducing inflammation, accelerating recovery, and giving people their lives back without drugs or surgery.</p>
+        <span class="sponsor-cta">Discover PainFree ↗</span>
+      </a>
+
+    </div>
+
+    <!-- ── BECOME A SPONSOR ── -->
+    <div class="become-sponsor reveal">
+      <p class="bs-label">Join the Eagles Family</p>
+      <h3>Want Your <span>Brand Here?</span></h3>
+      <p>Get your business in front of a growing, loyal Eagles community across Cebu and beyond. Align your brand with brotherhood, service, and the kind of Cebuano pride that opens doors — because our sponsors don't just advertise, they belong.</p>
+      <div class="bs-btns">
+        <a href="https://m.me/61577709546547?text=Hey!%20I%20want%20to%20become%20a%20sponsor%2C%20Can%20I%20hear%20more%3F" target="_blank" rel="noopener" class="btn-primary">Inquire via Messenger ↗</a>
+        <a href="mailto:sponsors@metrosugbuagles.com" class="btn-ghost">Send an Email</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="container">
+    <div class="footer-logo">Metro Sugbu Eagles</div>
+    <div class="footer-sub">International Fraternal Order of Eagles — Cebu Chapter</div>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="about.html">About Us</a>
+      <a href="our-clubs.html">Our Clubs</a>
+      <a href="sponsors.html">Sponsors</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="calendar.html">Calendar</a>
+    </div>
+    <div class="footer-line"></div>
+    <p class="footer-copy">&copy; 2025 International Fraternal Order of Eagles — Metro Sugbu Chapter. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+  // Nav scroll effect
+  const nav = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // Reveal on scroll
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        const delay = entry.target.closest('.sponsors-grid') 
+          ? Array.from(entry.target.parentElement.children).indexOf(entry.target) * 80 
+          : 0;
+        setTimeout(() => entry.target.classList.add('visible'), delay);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
