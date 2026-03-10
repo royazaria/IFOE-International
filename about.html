@@ -220,12 +220,13 @@
     #our-network::before{top:0}#our-network::after{bottom:0}
     .net-head{text-align:center;margin-bottom:52px}
     .net-head .s-label{justify-content:center}
-    .clubs-seal-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;align-items:center;margin-bottom:48px}
-    @media(max-width:700px){.clubs-seal-grid{grid-template-columns:repeat(2,1fr)}}
-    .seal-card{text-align:center;padding:20px 12px;border:1px solid rgba(245,184,0,.1);transition:all .3s;background:rgba(245,184,0,.02)}
+    .clubs-seal-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;align-items:center;margin-bottom:48px}
+    @media(max-width:900px){.clubs-seal-grid{grid-template-columns:repeat(4,1fr)}}
+    @media(max-width:600px){.clubs-seal-grid{grid-template-columns:repeat(3,1fr)}}
+    .seal-card{text-align:center;padding:14px 8px;border:1px solid rgba(245,184,0,.1);transition:all .3s;background:rgba(245,184,0,.02)}
     .seal-card:hover{border-color:rgba(245,184,0,.35);background:rgba(245,184,0,.06);transform:translateY(-4px)}
-    .seal-card img{width:90px;height:90px;object-fit:contain;margin:0 auto 12px;display:block;filter:drop-shadow(0 0 8px rgba(245,184,0,.25))}
-    .seal-name{font-family:'Cinzel',serif;font-size:9.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.6)}
+    .seal-card img{width:64px;height:64px;object-fit:contain;margin:0 auto 10px;display:block;filter:drop-shadow(0 0 6px rgba(245,184,0,.25))}
+    .seal-name{font-family:'Cinzel',serif;font-size:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.6);line-height:1.4}
     .net-stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-top:0}
     @media(max-width:700px){.net-stat-row{grid-template-columns:repeat(2,1fr)}}
     .ns{background:var(--dark-mid);padding:28px 20px;text-align:center;border-top:3px solid transparent;transition:all .3s}
@@ -508,7 +509,7 @@
       <!-- US -->
       <div class="diff-col">
         <div class="diff-col-head us">
-          <img src="logo IFOE.jpg" alt="IFOE Philippine Eagles" style="filter:drop-shadow(0 0 8px rgba(245,184,0,.4))"/>
+          <img src="logo IFOE.jpg" alt="IFOE Philippine Eagles" style="height:48px;object-fit:contain;filter:drop-shadow(0 0 8px rgba(245,184,0,.4))"/>
           <div class="diff-col-name gold">IFOE Philippine Eagles</div>
           <div class="diff-col-sub gold">Founded 2025 · Quezon City roots since 1979 · Philippine-Born</div>
         </div>
@@ -700,16 +701,25 @@
         <div class="seal-name">Central Visayas Region</div>
       </div>
       <div class="seal-card">
-        <img src="sentro_sugbu.jpg" alt="Sentro Sugbo International Eagles Club"/>
+        <img src="sentro sugbu.jpg" alt="Sentro Sugbo International Eagles Club"/>
         <div class="seal-name">Sentro Sugbo Club</div>
       </div>
       <div class="seal-card">
-        <img src="Metro_Sugbo_Eagles.jpg" alt="Metro Sugbu International Eagles Club"/>
+        <img src="Metro Sugbo Eagles.jpg" alt="Metro Sugbu International Eagles Club"/>
         <div class="seal-name">Metro Sugbu Club</div>
       </div>
       <div class="seal-card">
-        <img src="legend_visayas.jpg" alt="Visayas Legend International Eagles Club"/>
+        <img src="legend visayas.jpg" alt="Visayas Legend International Eagles Club"/>
         <div class="seal-name">Visayas Legend Club</div>
+      </div>
+      <!-- ADD MORE CLUBS BELOW — just copy a seal-card block and change the img src + seal-name -->
+      <!-- <div class="seal-card">
+        <img src="YOUR_CLUB_LOGO.jpg" alt="Club Name"/>
+        <div class="seal-name">Club Name</div>
+      </div> -->
+      <div class="seal-card" style="border-style:dashed;opacity:.4">
+        <div style="width:64px;height:64px;display:flex;align-items:center;justify-content:center;margin:0 auto 10px;border:1px dashed rgba(245,184,0,.3);font-size:28px;color:var(--gold)">+</div>
+        <div class="seal-name">Your Club Here</div>
       </div>
     </div>
 
