@@ -421,171 +421,18 @@
    date format: "YYYY-MM-DD"
 ═══════════════════════════════════════════════════ */
 const EVENTS = [
-  {
-    id: 1,
-    title: "Community Feeding Program",
-    date: "2026-03-15",
-    time: "8:00 AM – 12:00 PM",
-    location: "Barangay Luz, Cebu City",
-    region: "Cebu",
-    club: "Sentro Sugbo International Eagles Club",
-    contact: "Eagle-in-Charge · msg via Messenger",
-    desc: "Monthly community feeding program for children and senior citizens in Barangay Luz. Eagles are requested to wear their black uniform. Bring canned goods for additional donation."
-  },
-  {
-    id: 2,
-    title: "Chapter Meeting – Metro Sugbo",
-    date: "2026-03-18",
-    time: "6:00 PM – 9:00 PM",
-    location: "Cebu City Sports Center, Cebu City",
-    region: "Cebu",
-    club: "Metro Sugbo International Eagles Club",
-    contact: "Eagle-in-Charge · msg via Messenger",
-    desc: "Regular monthly chapter meeting. Agenda includes Q2 activity planning, membership updates, and treasurer's report. All active members are expected to attend."
-  },
-  {
-    id: 3,
-    title: "Courtesy Call – Mayor's Office",
-    date: "2026-03-22",
-    time: "10:00 AM – 12:00 PM",
-    location: "Mandaue City Hall, Mandaue City",
-    region: "Cebu",
-    club: "Central Visayas International Eagles Region",
-    contact: "Eagle Gilbert A. Sebandal · msg via Messenger",
-    desc: "Formal courtesy call on the Mandaue City Mayor's Office. IFOE leadership and regional officers will attend. Business attire required. Coordination for upcoming city-wide feeding program."
-  },
-  {
-    id: 4,
-    title: "Medical Mission",
-    date: "2026-04-05",
-    time: "7:00 AM – 3:00 PM",
-    location: "Poblacion, Consolacion, Cebu",
-    region: "Cebu",
-    club: "Sentro Sugbo International Eagles Club",
-    contact: "Eagle-in-Charge · msg via Messenger",
-    desc: "Free medical and dental consultations for residents of Consolacion. Partner doctors and nurses will be on-site. Eagles to assist in crowd management and logistics. Medicines provided."
-  },
-  {
-    id: 5,
-    title: "Chapter Fellowship Night",
-    date: "2026-04-10",
-    time: "7:00 PM – 10:00 PM",
-    location: "Visayas Legend Hall, Cebu City",
-    region: "Visayas",
-    club: "Visayas Legend International Eagles Club",
-    contact: "Eagle-in-Charge · msg via Messenger",
-    desc: "Quarterly brotherhood fellowship dinner. Open to all Eagles and their families. Dress code: smart casual. Program includes recognition of outstanding Eagles and announcement of Q2 activities."
-  },
-  {
-    id: 6,
-    title: "Scholarship Awarding",
-    date: "2026-04-18",
-    time: "9:00 AM – 12:00 PM",
-    location: "University of Cebu, Lapu-Lapu City",
-    region: "Cebu",
-    club: "Central Visayas International Eagles Region",
-    contact: "Eagle Gilbert A. Sebandal · msg via Messenger",
-    desc: "Annual scholarship awarding ceremony for deserving students under the IFOE Education Support Program. Three scholars will receive full academic year sponsorships."
-  },
-  {
-    id: 7,
-    title: "Feeding Program – Mindanao",
-    date: "2026-04-20",
-    time: "8:00 AM – 1:00 PM",
-    location: "Cagayan de Oro City, Mindanao",
-    region: "Mindanao",
-    club: "IFOE Mindanao Chapter",
-    contact: "Eagle-in-Charge · msg via Messenger",
-    desc: "Community feeding drive for children and families in underserved barangays of CDO. Local Eagles chapter coordinating with barangay officials. Volunteers welcome."
-  },
-  {
-    id: 8,
-    title: "Induction of New Members",
-    date: "2026-04-25",
-    time: "6:00 PM – 9:00 PM",
-    location: "Marco Polo Hotel, Cebu City",
-    region: "Cebu",
-    club: "Metro Sugbo International Eagles Club",
-    contact: "Eagle-in-Charge · msg via Messenger",
-    desc: "Formal induction ceremony for new Metro Sugbo Eagles members. Candlelight induction ceremony followed by a dinner reception. Formal attire required. Family members are welcome to attend."
-  },
-  {
-    id: 9,
-    title: "Chapter Meeting – Manila",
-    date: "2026-05-03",
-    time: "5:00 PM – 8:00 PM",
-    location: "Quezon City, Metro Manila",
-    region: "Manila",
-    club: "IFOE Manila Chapter",
-    contact: "Eagle-in-Charge · msg via Messenger",
-    desc: "Monthly chapter meeting for Manila-based Eagles. Discussion on membership drive, upcoming national events, and coordination with national leadership."
-  },
-  {
-    id: 10,
-    title: "Tree Planting & Clean-Up Drive",
-    date: "2026-05-10",
-    time: "6:00 AM – 10:00 AM",
-    location: "Lahug Watershed, Cebu City",
-    region: "Cebu",
-    club: "Sentro Sugbo International Eagles Club",
-    contact: "Eagle-in-Charge · msg via Messenger",
-    desc: "Environmental outreach activity. Eagles will plant 500 seedlings and clean the surrounding area. Bring work gloves and wear comfortable clothes. Breakfast will be provided."
-  },
-  {
-    id: 11,
-    title: "Eagles Sports Fest",
-    date: "2026-05-16",
-    time: "7:00 AM – 5:00 PM",
-    location: "SRP Arena, Cebu City",
-    region: "Visayas",
-    club: "Central Visayas International Eagles Region",
-    contact: "Eagle Gilbert A. Sebandal · msg via Messenger",
-    desc: "Annual inter-club sports tournament. Basketball, volleyball, and badminton. Open to all IFOE members and their families. Registration required. Winners receive Eagles championship medals."
-  },
-  {
-    id: 12,
-    title: "International Board Meeting",
-    date: "2026-05-22",
-    time: "9:00 AM – 5:00 PM",
-    location: "Waterfront Cebu City Hotel",
-    region: "International",
-    club: "IFOE International Leadership",
-    contact: "Atty. Jun Salatandre · msg via Messenger",
-    desc: "Quarterly International Board of Directors meeting. Agenda includes review of club charters, financial reports, international expansion plans, and planning for the 3rd International Convention."
-  },
-  {
-    id: 13,
-    title: "Feeding Program – Manila",
-    date: "2026-06-07",
-    time: "8:00 AM – 12:00 PM",
-    location: "Payatas, Quezon City",
-    region: "Manila",
-    club: "IFOE Manila Chapter",
-    contact: "Eagle-in-Charge · msg via Messenger",
-    desc: "Community feeding mission in the Payatas area. Eagles will distribute hot meals and care packages to 200+ families. Volunteers and additional food donations are welcome."
-  },
-  {
-    id: 14,
-    title: "Livelihood Skills Training",
-    date: "2026-06-14",
-    time: "9:00 AM – 4:00 PM",
-    location: "Mandaue City, Cebu",
-    region: "Cebu",
-    club: "Metro Sugbo International Eagles Club",
-    contact: "Eagle-in-Charge · msg via Messenger",
-    desc: "Free livelihood training seminar for community members. Topics include basic food processing, handicraft making, and small business basics. Materials and meals provided to all participants."
-  },
-  {
-    id: 15,
-    title: "Mid-Year Eagles Gala",
-    date: "2026-06-27",
-    time: "7:00 PM – 11:00 PM",
-    location: "Radisson Blu Hotel, Cebu City",
-    region: "International",
-    club: "IFOE Philippine Eagles – All Clubs",
-    contact: "Atty. Jun Salatandre · msg via Messenger",
-    desc: "Grand mid-year gala dinner for all IFOE Eagles and their partners. Recognition of outstanding clubs, announcement of Q3 initiatives, and fellowship with national and international guests. Black tie event."
-  }
+  // Add your events here. Example:
+  // {
+  //   id: 1,
+  //   title: "Event Name",
+  //   date: "2026-04-15",        // YYYY-MM-DD
+  //   time: "9:00 AM – 1:00 PM",
+  //   location: "Venue, City",
+  //   region: "Cebu",            // Cebu / Visayas / Mindanao / Manila / International
+  //   club: "Club Name",
+  //   contact: "Eagle Name · msg via Messenger",
+  //   desc: "Description of the event."
+  // },
 ];
 
 /* ═══════════════════════════════════
