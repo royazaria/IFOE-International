@@ -716,6 +716,7 @@
         </div>
         <input type="email" class="fi" id="nf-em" placeholder="Email Address" />
         <input type="text" class="fi" id="nf-ci" placeholder="City / Country" />
+        <input type="text" class="fi" id="nf-mh" placeholder="Messenger Handle (e.g. @yourname)" />
         <select class="fi" id="nf-int">
           <option value="" disabled selected>I am interested in…</option>
           <option>Becoming a Member</option>
@@ -726,18 +727,8 @@
           <option>General Information</option>
         </select>
         <input type="text" class="fi" id="nf-nt" placeholder="Message or Question (optional)" />
-        <button class="btn-form" onclick="nlSend()">Subscribe &amp; Send via Messenger →</button>
-        <p class="form-note">By subscribing you agree to receive Eagle updates via Messenger. No spam, ever.</p>
-        <!-- MailerLite -->
-        <script>
-            (function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[])
-            .push(arguments);},l=d.createElement(e),l.async=1,l.src=u,
-            n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})
-            (window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
-            ml('account', '2180131');
-        </script>
-        <div class="ml-embedded" data-form="D7hfga"></div>
-        <!-- End MailerLite -->
+        <button class="btn-form" onclick="nlSend()">Subscribe &amp; Send →</button>
+        <p class="form-note">We'll reach out to you on Messenger within 24 hours with more details.</p>
       </div>
     </div>
   </div>
@@ -812,16 +803,21 @@
   for(let i=0;i<40;i++){const p=document.createElement('div');p.className='particle';p.style.left=Math.random()*100+'%';p.style.animationDuration=(9+Math.random()*14)+'s';p.style.animationDelay=(Math.random()*14)+'s';const s=(1+Math.random()*2.2)+'px';p.style.width=p.style.height=s;pc.appendChild(p);}
   const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:0.1,rootMargin:'0px 0px -50px 0px'});
   document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
-  function nlSend(){
+function nlSend(){
     const fn=document.getElementById('nf-fn').value||'';
     const ln=document.getElementById('nf-ln').value||'';
     const em=document.getElementById('nf-em').value||'';
     const ci=document.getElementById('nf-ci').value||'';
+    const mh=document.getElementById('nf-mh').value||'';
     const it=document.getElementById('nf-int').value||'';
     const nt=document.getElementById('nf-nt').value||'';
-    const m=encodeURIComponent('Hello IFOE Philippine Eagles! 👋\n\nName: '+fn+' '+ln+'\nEmail: '+em+'\nCity/Country: '+ci+'\nInterest: '+it+'\nMessage: '+(nt||'N/A')+'\n\nI would like to subscribe to your newsletter. Thank you!');
-    window.open('https://www.facebook.com/messages/t/61577709546547?text='+m,'_blank');
-  }
+    fetch('https://formspree.io/f/xpqypvpk',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body:JSON.stringify({name:fn+' '+ln,email:em,city:ci,messenger:mh,interest:it,message:nt||'N/A'})
+    });
+    alert('Thank you! We will contact you on Messenger within 24 hours.');
+}
   const _burger=document.getElementById('navBurger');
   const _drawer=document.getElementById('navDrawer');
   if(_burger&&_drawer){
