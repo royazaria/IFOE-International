@@ -816,7 +816,7 @@ function nlSend(){
       headers:{'Content-Type':'application/json','Accept':'application/json'},
       body:JSON.stringify({name:fn+' '+ln,email:em,city:ci,messenger:mh,interest:it,message:nt||'N/A'})
     });
-    alert('Thank you! We will contact you on Messenger within 24 hours.');
+    window.location.href='thankyou.html';
 }
   const _burger=document.getElementById('navBurger');
   const _drawer=document.getElementById('navDrawer');
