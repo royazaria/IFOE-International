@@ -357,7 +357,7 @@
         <div class="club-card-inner">
           <div class="club-seal-wrap">
             <div class="club-seal-glow"></div>
-            <img class="club-seal" src="att.5VUYAtdDahJaKcWssw75n5thItgc_BfciSLeiHt-fmU.png-removebg-preview.png" alt="Kalayaan Knights Eagles Club" />
+            <img class="club-seal" src="att.5VUYAtdDahJaKcWssw75n5thItgc_BfciSLeiHt-fmU.png-removebg-preview.png" onerror="this.onerror=null;this.src='att_5VUYAtdDahJaKcWssw75n5thItgc_Bfci8LeiHt-fmU_png-removebg-preview.png'" alt="Kalayaan Knights Eagles Club" />
           </div>
           <div class="club-name">Kalayaan Knights Eagles Club International</div>
           <div class="club-divider"></div>
@@ -423,7 +423,7 @@
         <div class="club-card-inner">
           <div class="club-seal-wrap">
             <div class="club-seal-glow"></div>
-            <img class="club-seal" src="att.m3SXYGmoGQ1nFV_61APRBSmvEgqyBYzWO8oF3q5VmUM-removebg-preview.png" alt="Bacacay Eagles Club" />
+            <img class="club-seal" src="att.m3SXYGmoGQ1nFV_61APRBSmvEgqyBYzWO8oF3q5VmUM-removebg-preview.png" onerror="this.onerror=null;this.src='att_m3SXYGmoGQ1nFV_61APRB5mvEgqyBYzWO8oF3q5VmUM-removebg-preview.png'" alt="Bacacay Eagles Club" />
           </div>
           <div class="club-name">Bacacay Eagles Club International</div>
           <div class="club-divider"></div>
@@ -477,7 +477,7 @@
         <div class="club-card-inner">
           <div class="club-seal-wrap">
             <div class="club-seal-glow"></div>
-            <img class="club-seal" src="att.FFpsOAmCqykhIbjm08NGikfoPhc8Tizfa80MP7sPRg-removebg-preview.png" alt="Albay Majestic Eagles Club" />
+            <img class="club-seal" src="att.FFpsOAmCqykhIbjm08NGikfoPhc8Tizfa80MP7sPRg-removebg-preview.png" onerror="this.onerror=null;this.src='att_FFpsOAmCqykIhlbjm08NGikfoPhc8TizfaB0MP7sPRg-removebg-preview.png'" alt="Albay Majestic Eagles Club" />
           </div>
           <div class="club-name">Albay Majestic Eagles Club International</div>
           <div class="club-divider"></div>
@@ -513,7 +513,7 @@
         <div class="club-card-inner">
           <div class="club-seal-wrap">
             <div class="club-seal-glow"></div>
-            <img class="club-seal" src="att.xlRypHlxmALemRW0BiaMpskW2_6Lvb0KJbtg2lv4Sak-removebg-preview.png"
+            <img class="club-seal" src="att.xlRypHlxmALemRW0BiaMpskW2_6Lvb0KJbtg2lv4Sak-removebg-preview.png" onerror="this.onerror=null;this.src='att_xIRypHlxmALemRW0BiaMpskW2_6Lvb0KJbtg2lv4Sak-removebg-preview.png'"
                  alt="Pilar Sovereign Eagles Club" />
           </div>
           <div class="club-name">Pilar Sovereign Eagles Club International</div>
@@ -716,39 +716,28 @@
 
   /* ── Region Tab Filter ── */
   function showRegion(region) {
-    // Update tab styles
     document.querySelectorAll('.rtab').forEach(t => t.classList.remove('active'));
     event.target.classList.add('active');
 
-    const luzon   = document.getElementById('sec-all-luzon');
-    const bicol   = document.getElementById('sec-all-bicol');
-    const visayas = document.getElementById('sec-all-visayas');
+    const sections = {
+      luzon:   document.getElementById('sec-all-luzon'),
+      bicol:   document.getElementById('sec-all-bicol'),
+      visayas: document.getElementById('sec-all-visayas'),
+    };
 
-    if (region === 'all') {
-      luzon.style.display   = 'block';
-      bicol.style.display   = 'block';
-      visayas.style.display = 'block';
-    } else if (region === 'luzon') {
-      luzon.style.display   = 'block';
-      bicol.style.display   = 'none';
-      visayas.style.display = 'none';
-    } else if (region === 'bicol') {
-      luzon.style.display   = 'none';
-      bicol.style.display   = 'block';
-      visayas.style.display = 'none';
-    } else if (region === 'visayas') {
-      luzon.style.display   = 'none';
-      bicol.style.display   = 'none';
-      visayas.style.display = 'block';
-    }
-
-    // Re-trigger reveal animations for visible cards
-    document.querySelectorAll('.reveal').forEach(el => {
-      el.classList.remove('visible');
+    Object.entries(sections).forEach(([key, el]) => {
+      if (region === 'all' || region === key) {
+        el.style.display = 'block';
+      } else {
+        el.style.display = 'none';
+      }
     });
+
+    // Re-trigger reveal animations
+    document.querySelectorAll('.reveal').forEach(el => el.classList.remove('visible'));
     setTimeout(() => {
       document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
-    }, 50);
+    }, 80);
   }
 
   /* ── Reveal on scroll ── */
